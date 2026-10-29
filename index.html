@@ -433,6 +433,7 @@ pre.json{font-family:var(--mono);font-size:11px;color:#c9d4e4;background:#080706
 .ch-grid b{display:block;color:var(--gold);font-weight:500}
 .ch-grid small{color:var(--dim)}
 @media (max-width:360px){.seg button{font-size:12.5px;gap:6px;letter-spacing:0}.seg button svg{width:15px;height:15px}}
+a.btn{text-decoration:none}
 /* ---- 0.5: Echte sensor ---- */
 .actions.fit{grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
 .actions.fit .btn{min-width:0;padding:0 14px}
@@ -592,6 +593,7 @@ const ICON = {
   list: I('<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>'),
   aroma: I('<path d="M12 21.5a5 5 0 0 0 5-5c0-3.2-5-9-5-9s-5 5.8-5 9a5 5 0 0 0 5 5z"/><path d="M8.5 2.5c.9.8.9 1.7 0 2.5M12 1.5c.9.8.9 1.7 0 2.5M15.5 2.5c.9.8.9 1.7 0 2.5"/><path d="M10 16.5a2 2 0 0 0 2 2" opacity=".6"/>'),
   bt: I('<path d="M7 7l10 10-5 4V3l5 4L7 17"/>'),
+  bag: I('<path d="M5 8h14l-1 12H6z"/><path d="M9 8V7a3 3 0 0 1 6 0v1"/>'),
 };
 
 /* ---------------------------- Catalog ------------------------------ */
@@ -1148,7 +1150,7 @@ const Backup = {
     return {
       schema: "scentphone.backup", version: this.version, exportedAt: new Date().toISOString(), app: "ScentPhone 0.5" + (STANDALONE ? " (zelfstandig)" : " (Claude)"),
       notice: "Volledige back-up van ScentPhone. Metingen met source 'simulated' zijn gesimuleerd en geen echte geurmetingen.",
-      settings: { name: Library.settings.name || "" }, lists: Library.lists,
+      settings: { name: Library.settings.name || "", shops: cleanShops(Library.settings.shops) }, lists: Library.lists,
       perfumes: Library.all().map((p) => { const { pristine, ...rest } = p; return { ...rest, scentProfiles: ScentMemory.measurements(p) }; }),
       sensor: this._sensorPart(),
     };
@@ -1204,7 +1206,7 @@ const Backup = {
         (Array.isArray(d.sensor.raw) ? d.sensor.raw : []).slice(0, 20000).forEach((r, i) => { try { sensor.raw.push(Kit.sanitizeRaw(r)); } catch (e) { errors.push("Ruwe sensorreeks " + (i + 1) + ": " + e.message); } });
       }
     }
-    return { perfumes, lists, settings: d.settings && typeof d.settings === "object" ? { name: str(d.settings.name, 40) } : {}, errors, exportedAt: d.exportedAt, sensor };
+    return { perfumes, lists, settings: d.settings && typeof d.settings === "object" ? { name: str(d.settings.name, 40), shops: cleanShops(d.settings.shops) } : {}, errors, exportedAt: d.exportedAt, sensor };
   },
   async apply(b) {
     const rep = { added: 0, replacedExamples: 0, kept: 0, measurementsAdded: 0, lists: 0, invalid: b.errors.length };
@@ -1232,6 +1234,7 @@ const Backup = {
       rep.kept++;
     }
     if (!Library.settings.name && b.settings.name) await Library.saveSettings({ name: b.settings.name });
+    if (!cleanShops(Library.settings.shops).length && b.settings.shops && b.settings.shops.length) await Library.saveSettings({ shops: b.settings.shops }); /* partnerlinks: alleen als er hier nog geen zijn */
     if (b.sensor) { /* sensorprofielen en ruwe reeksen: alleen toevoegen, nooit overschrijven */
       const cfg = Library.sensorConfig || {}, have = new Set((cfg.profiles || []).map((x) => x.id));
       const add = b.sensor.profiles.filter((x) => !have.has(x.id));
@@ -1746,6 +1749,7 @@ const Screens = {
       ${p.source === "ai" ? `<div class="notice warn" style="border-color:rgba(224,180,90,.4)">${ICON.alert}<div>Deze gegevens komen uit beeldherkenning en kunnen onjuist zijn. Controleer ze en pas aan waar nodig.</div></div>` : ""}
       <section class="section"><h2 class="sec">Geurpiramide</h2><div class="pyramid">${tier(t("top"), "0–15 min", p.top)}${tier(t("heart"), "15 min–3 uur", p.heart)}${tier(t("base"), "3 uur en later", p.base)}</div></section>
       ${p.description ? `<section class="section"><h2 class="sec">Beschrijving</h2><p class="muted" style="max-width:62ch">${esc(p.description)}</p></section>` : ""}
+      ${shopsHTML(p)}
       <section class="section"><h2 class="sec">Mijn indruk</h2>
         ${saved ? `<div class="panel">
           <div><span class="eyebrow">Beoordeling</span><div class="stars" id="stars" role="radiogroup" aria-label="Beoordeling">${[1, 2, 3, 4, 5].map((n) => `<button role="radio" aria-checked="${p.rating === n}" aria-label="${n} van 5" data-r="${n}" class="${p.rating >= n ? "on" : ""}">${p.rating >= n ? ICON.starF : ICON.star}</button>`).join("")}</div></div>
@@ -1874,6 +1878,7 @@ const Screens = {
       ["Digitaal geurgeheugen: profielen bewaren en zoeken", "Werkt", "ok"],
       ["Geuren vergelijken", "Schatting", "warn", "Berekend uit opgegeven noten, geen gemeten overeenkomst"],
       ["Export en import van geurprofielen", "Werkt", "ok", "JSON-bestand met controle"],
+      ["Partnerlinks naar webshops", "Werkt", "ok", "Eigen affiliatelinks via Profiel → Partnerlinks; zonder links geen koopknoppen"],
       ["Sensormetingen opslaan, vergelijken en exporteren", "Werkt", "ok", "Ruwe reeks, verwerkte gegevens en metadata apart; JSON en CSV"],
       ["Engelse taal", "In voorbereiding", "future"],
     ];
@@ -1888,17 +1893,19 @@ const Screens = {
         <div>${ICON.globe.replace("<svg", '<svg width="20" height="20" style="color:var(--gold)"')}<div class="mi"><b>Taal</b><small>Engels volgt in een latere versie</small></div><select class="sel" id="lang" aria-label="Taal">${I18n.available.map((l) => `<option value="${l.id}" ${l.ready ? "" : "disabled"} ${I18n.locale === l.id ? "selected" : ""}>${l.label}${l.ready ? "" : " (binnenkort)"}</option>`).join("")}</select></div>
         <div>${ICON.db.replace("<svg", '<svg width="20" height="20" style="color:var(--gold)"')}<div class="mi"><b>Opslag</b><small>${esc(Library.mode)}</small></div></div>
         <button id="toLab">${ICON.chip.replace("<svg", '<svg width="20" height="20" style="color:var(--sim)"')}<div class="mi"><b>Geurtechnologie-lab</b><small>Demo-sensor, digitale profielen en geurmodule</small></div>${ICON.chev}</button>
+        <button id="toShops">${ICON.bag.replace("<svg", '<svg width="20" height="20" style="color:var(--gold)"')}<div class="mi"><b>Partnerlinks</b><small>${cleanShops(Library.settings.shops).length ? cleanShops(Library.settings.shops).length + " ingesteld · koopknoppen bij parfums" : "Koopknoppen bij parfums instellen"}</small></div>${ICON.chev}</button>
       </div></section>
       <section class="section"><h2 class="sec">Gegevens overzetten</h2><p class="small muted">Maak een volledige back-up van je parfums, foto's, beoordelingen, lijsten en geurprofielen. Zet die terug in een andere versie van ScentPhone, bijvoorbeeld de zelfstandige app op je beginscherm. Gegevens gaan niet vanzelf mee naar een ander adres of toestel.</p>
         <div class="actions"><button class="btn" id="bkExp">${ICON.download} Back-up maken</button><button class="btn ghost" id="bkImp">${ICON.upload} Terugzetten</button></div></section>
       <section class="section"><h2 class="sec">Wat werkt in deze versie</h2><div class="status-list">${status.map(([n, s, k, d]) => `<div><span>${esc(n)}${d ? `<small>${esc(d)}</small>` : ""}</span><span class="pill ${k}">${esc(s)}</span></div>`).join("")}</div></section>
       <button class="btn danger block" id="wipe">${ICON.trash} Alle gegevens wissen</button>
-      <p class="small muted" style="text-align:center">ScentPhone ${STANDALONE ? "0.5.0 · zelfstandige app" : "prototype 0.5.0"} · oktober 2026</p>`,
+      <p class="small muted" style="text-align:center">ScentPhone ${STANDALONE ? "0.5.1 · zelfstandige app" : "prototype 0.5.1"} · oktober 2026</p>`,
       bind(m) {
         $("#editName", m).onclick = () => UI.sheet(`<h3>Je naam</h3><form id="nf" class="form" novalidate><input class="inp" id="nIn" maxlength="40" value="${esc(Library.settings.name)}" placeholder="Voornaam" aria-label="Naam"><div class="actions"><button type="button" class="btn ghost" data-dismiss>Annuleren</button><button class="btn primary" type="submit">Bewaren</button></div></form>`,
           (s, close) => { $("#nf", s).onsubmit = async (e) => { e.preventDefault(); await Library.saveSettings({ name: $("#nIn", s).value.trim() }); close(); UI.render(); }; });
         $("#lang", m).onchange = (e) => { const l = I18n.available.find((x) => x.id === e.target.value); if (!l.ready) { UI.toast("Engels is nog in voorbereiding"); e.target.value = I18n.locale; return; } };
         $("#toLab", m).onclick = () => UI.go("lab");
+        $("#toShops", m).onclick = () => shopsSheet(null);
         const be = $("#bkExp", m); if (be) be.onclick = () => exportBackup();
         const bi = $("#bkImp", m); if (bi) bi.onclick = () => restoreSheet();
         $("#wipe", m).onclick = () => UI.confirm("Alle gegevens wissen?", "Je bibliotheek, lijsten, beoordelingen en gesimuleerde profielen worden definitief verwijderd. Dit kan niet ongedaan worden gemaakt.", "Alles wissen", async () => { await Library.wipe(); UI.toast("Alle gegevens gewist"); UI.render(); });
@@ -2150,6 +2157,68 @@ const Screens = {
     };
   },
 };
+
+
+/* ---------------------------- Partnerlinks (0.5.1) ----------------
+ * Koopknoppen ("Koop bij…", "Sample bij…") met de eigen affiliatelinks van de gebruiker.
+ * Opslag: Library.settings.shops = [{ id, name, kind: "buy"|"sample", url, on }]. Alleen https-links.
+ * {zoek} in de link wordt vervangen door merk + naam van het parfum (URL-gecodeerd).
+ * Zonder ingestelde links toont de app geen koopknoppen. Er worden geen prijzen verzonnen.
+ */
+const SHOPS_MAX = 6;
+function shopUrlOk(u) { if (!/^https:\/\/\S+$/i.test(u || "")) return false; try { new URL(String(u).replace(/\{zoek\}/g, "test")); return true; } catch (e) { return false; } }
+function cleanShops(list) {
+  return (Array.isArray(list) ? list : []).slice(0, SHOPS_MAX).map((x) => ({ id: String((x && x.id) || uid("sh")).slice(0, 40), name: String((x && x.name) || "").trim().slice(0, 40), kind: x && x.kind === "sample" ? "sample" : "buy", url: String((x && x.url) || "").trim().slice(0, 1000), on: !(x && x.on === false) }))
+    .filter((x) => x.name && shopUrlOk(x.url));
+}
+/** Staat {zoek} binnen een al gecodeerd winkeladres (bijv. ...&ued=https%3A%2F%2F...%3Fq%3D{zoek}), dan wordt de zoekterm dubbel gecodeerd. */
+function shopLink(s, p) {
+  const q = encodeURIComponent(((p.brand || "") + " " + (p.name || "")).trim());
+  return s.url.replace(/\{zoek\}/g, (m, i, all) => (/%3[fFdD]|%26/.test(all.slice(0, i)) ? encodeURIComponent(q) : q));
+}
+function shopsHTML(p) {
+  const shops = cleanShops(Library.settings.shops).filter((s) => s.on); if (!shops.length) return "";
+  return `<section class="section"><h2 class="sec">Kopen of proberen</h2>
+    <div class="actions fit">${shops.map((s, i) => `<a class="btn ${i === 0 ? "primary" : ""}" href="${esc(shopLink(s, p))}" target="_blank" rel="sponsored noopener">${s.kind === "sample" ? ICON.aroma : ICON.bag} ${s.kind === "sample" ? "Sample bij " : "Koop bij "}${esc(s.name)}</a>`).join("")}</div>
+    <p class="hint">Bevat partnerlinks: ScentPhone kan een vergoeding ontvangen als je via deze knoppen iets koopt. Je betaalt de normale prijs van de winkel.</p></section>`;
+}
+function shopsSheet(editId) {
+  const shops = cleanShops(Library.settings.shops), cur = shops.find((s) => s.id === editId) || null;
+  const ex = Library.all()[0] || CATALOG[0];
+  UI.sheet(`<h3>Partnerlinks</h3>
+    <p class="small muted">Voeg de affiliatelinks toe die je van je partnernetwerk krijgt (bijvoorbeeld Daisycon of Awin). Zet <code>{zoek}</code> op de plek van de zoekterm; ScentPhone vult daar merk en naam van het parfum in. Zonder <code>{zoek}</code> gaat de knop altijd naar dezelfde pagina.</p>
+    ${shops.length ? `<div class="list">${shops.map((s) => `<div class="device"><span class="led ${s.on ? "ok" : ""}"></span><div class="meta"><b>${esc(s.name)}</b><small>${s.kind === "sample" ? "Sample" : "Kopen"}${s.on ? "" : " · verborgen"} · ${esc(s.url.replace(/^https:\/\//i, "").slice(0, 34))}…</small></div><button class="btn sm ghost" data-she="${esc(s.id)}">Bewerk</button></div>`).join("")}</div>`
+      : `<p class="small muted">Nog geen partnerlinks. Zolang er geen links zijn, toont de app geen koopknoppen.</p>`}
+    <form id="shf" class="form" novalidate><h3 style="margin-top:6px">${cur ? "Bewerk " + esc(cur.name) : "Nieuwe partnerlink"}</h3>
+      <label class="f">Naam winkel<input class="inp" name="name" maxlength="40" value="${esc(cur ? cur.name : "")}" placeholder="Parfumwinkel"></label>
+      <label class="f">Soort knop<select class="inp" name="kind"><option value="buy">Kopen</option><option value="sample" ${cur && cur.kind === "sample" ? "selected" : ""}>Sample proberen</option></select></label>
+      <label class="f">Partnerlink<input class="inp mono" name="url" value="${esc(cur ? cur.url : "")}" placeholder="https://…{zoek}…" autocapitalize="off" autocorrect="off" spellcheck="false" inputmode="url"><span class="hint" id="shPrev"></span></label>
+      <label class="chk"><input type="checkbox" name="on" ${!cur || cur.on ? "checked" : ""}><span><b>Tonen bij parfums</b><small>Uitzetten verbergt de knop zonder de link te verwijderen.</small></span></label>
+      <div class="notice err" id="shErr" hidden></div>
+      <div class="actions fit">${cur ? `<button type="button" class="btn danger" id="shDel">${ICON.trash} Verwijderen</button>` : `<button type="button" class="btn ghost" data-dismiss>Sluiten</button>`}<button class="btn primary" type="submit">Bewaren</button></div>
+      ${cur ? `<div class="actions fit"><button type="button" class="btn sm ghost" id="shTest">${ICON.search} Test met ${esc(ex.brand)} ${esc(ex.name)}</button><button type="button" class="btn sm ghost" id="shNew">${ICON.plus} Nieuwe link</button></div>` : ""}
+    </form>`, (sh, close) => {
+    const f = $("#shf", sh), err = $("#shErr", sh), prev = $("#shPrev", sh);
+    const showErr = (m) => { err.hidden = !m; err.innerHTML = m ? `${ICON.alert}<div>${esc(m)}</div>` : ""; };
+    const upd = () => { const u = f.elements.url.value.trim(); prev.textContent = !u ? "Begint met https://" : shopUrlOk(u) ? (u.includes("{zoek}") ? "Voorbeeld: " + shopLink({ url: u }, ex).slice(0, 90) : "Zonder {zoek}: de knop opent altijd deze pagina.") : "Dit is geen geldige https-link."; };
+    f.elements.url.oninput = upd; upd();
+    $$("[data-she]", sh).forEach((b) => (b.onclick = () => { close(); shopsSheet(b.dataset.she); }));
+    f.onsubmit = async (e) => {
+      e.preventDefault();
+      const name = f.elements.name.value.trim(), url = f.elements.url.value.trim();
+      if (!name) return showErr("Vul de naam van de winkel in.");
+      if (!shopUrlOk(url)) return showErr("Vul een geldige link in die begint met https://.");
+      if (!cur && shops.length >= SHOPS_MAX) return showErr("Je kunt maximaal " + SHOPS_MAX + " partnerlinks instellen.");
+      const item = { id: cur ? cur.id : uid("sh"), name, kind: f.elements.kind.value === "sample" ? "sample" : "buy", url, on: f.elements.on.checked };
+      const list = cur ? shops.map((s) => (s.id === cur.id ? item : s)) : [...shops, item];
+      try { await Library.saveSettings({ shops: list }); } catch (er) { return showErr(er.message || "Bewaren lukte niet."); }
+      close(); UI.toast("Partnerlink bewaard"); UI.render();
+    };
+    const del = $("#shDel", sh); if (del) del.onclick = async () => { await Library.saveSettings({ shops: shops.filter((s) => s.id !== cur.id) }); close(); UI.toast("Partnerlink verwijderd"); UI.render(); };
+    const tst = $("#shTest", sh); if (tst) tst.onclick = () => { const w = window.open(shopLink(cur, ex), "_blank", "noopener"); if (!w) UI.toast("Kon de link niet openen.", true); };
+    const nw = $("#shNew", sh); if (nw) nw.onclick = () => { close(); shopsSheet(null); };
+  });
+}
 
 /* ---------------------------- Sheets ------------------------------- */
 function smellSheet(p) {

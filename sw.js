@@ -1,10 +1,10 @@
-/* ScentPhone serviceworker 0.5.0 (Geurherkenning 1.0 + Echte sensor / Sensorkit 1.0)
+/* ScentPhone serviceworker 0.5.1 (Geurherkenning 1.0 + Echte sensor / Sensorkit 1.0)
  * - App-bestanden: uit de cache (offline), pagina zelf: eerst netwerk zodat updates binnenkomen.
  * - Externe gratis bibliotheken (Google Fonts, jsDelivr: ZXing, Tesseract): na het eerste gebruik bewaard voor offline gebruik.
  * - Parfumgegevens, sensormetingen en ruwe sensorreeksen staan in IndexedDB en worden door deze serviceworker nooit aangeraakt.
  * - Bij een update worden alleen oude app-caches (scentphone-…) opgeruimd, nooit gebruikersgegevens.
  */
-const VERSION = "scentphone-0.5.0";
+const VERSION = "scentphone-0.5.1";
 const SHELL_CACHE = VERSION + "-shell";
 const RUNTIME_CACHE = VERSION + "-runtime";
 const SHELL = [
