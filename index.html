@@ -377,6 +377,62 @@ pre.json{font-family:var(--mono);font-size:11px;color:#c9d4e4;background:#080706
 .lg.gold{background:var(--gold)}
 .lg.ivory{background:repeating-linear-gradient(90deg,var(--ivory) 0 4px,transparent 4px 7px)}
 .simscore{font-family:var(--display);font-weight:500;font-size:22px;color:var(--sim);font-variant-numeric:tabular-nums}
+/* Geurherkenning 1.0 */
+.seg.sm button{min-height:34px;font-size:12.5px}
+.seg button[disabled]{opacity:.5}
+.sensor-card{border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(160deg,var(--panel-2),var(--panel));padding:14px;display:flex;flex-direction:column;gap:12px}
+.sensor-status{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.sensor-status .meta{min-width:0}
+.sensor-status b{display:block;font-weight:500;font-size:14.5px}
+.sensor-status small{display:block;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.led{width:10px;height:10px;border-radius:50%;background:var(--dim);flex:none}
+.led.sim{background:var(--sim);box-shadow:0 0 10px var(--sim);animation:pulse 2.4s ease-in-out infinite}
+.led.ok{background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.led.wait{background:var(--warn);box-shadow:0 0 10px var(--warn);animation:pulse 1s infinite}
+.led.err{background:var(--bad);box-shadow:0 0 8px var(--bad)}
+.nose-stage{position:relative;width:100%;height:clamp(270px,84vw,360px);border-radius:22px;border:1px solid var(--line);overflow:hidden;display:grid;place-items:center;background:radial-gradient(55% 50% at 50% 48%,rgba(201,164,92,.16),transparent 70%),linear-gradient(180deg,#15120c,#090807)}
+.nose-stage .cap-tl{position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:2}
+.nose-stage .cap-b{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:12.5px;color:var(--muted);padding:0 16px;z-index:2}
+.orb{position:relative;width:min(230px,60vw);aspect-ratio:1/1;margin-top:-14px}
+.orb>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.orb .prog{transition:stroke-dashoffset .45s ease}
+.orb .r1,.orb .r2{transform-box:fill-box;transform-origin:center}
+.orb .r1{animation:spin 22s linear infinite}
+.orb .r2{animation:spin 14s linear infinite reverse}
+.orb .sweep{position:absolute;inset:8%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 66%,rgba(234,211,155,.06) 78%,rgba(234,211,155,.45) 100%);-webkit-mask:radial-gradient(circle,transparent 34%,#000 35%);mask:radial-gradient(circle,transparent 34%,#000 35%);animation:spin 4s linear infinite;opacity:.3}
+.orb .core{position:absolute;inset:31%;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 40% 32%,#3b301b,#120f0a 72%);border:1px solid rgba(201,164,92,.55);box-shadow:0 0 30px rgba(201,164,92,.22),inset 0 0 18px rgba(201,164,92,.18);color:var(--gold-hi);animation:breathe 4s ease-in-out infinite}
+.orb .core svg{width:44%;height:44%}
+.orb .pct{font-family:var(--display);font-size:28px;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.nose-stage.run .orb .sweep{opacity:1;animation-duration:1.3s}
+.nose-stage.run .orb .r1{animation-duration:6s}
+.nose-stage.run .orb .r2{animation-duration:3.5s}
+.nose-stage.run .orb .core{animation-duration:1.6s}
+.nose-stage.done .orb .core{border-color:var(--gold-hi);box-shadow:0 0 46px rgba(234,211,155,.4),inset 0 0 22px rgba(201,164,92,.3);animation:none}
+@keyframes breathe{50%{box-shadow:0 0 52px rgba(201,164,92,.42),inset 0 0 24px rgba(201,164,92,.3);transform:scale(1.035)}}
+.nose-stage .mote{position:absolute;bottom:16%;width:4px;height:4px;border-radius:50%;background:var(--gold-hi);opacity:0;box-shadow:0 0 8px var(--gold);animation:mote 5.2s ease-in infinite;pointer-events:none}
+.nose-stage.run .mote{animation-duration:2.1s}
+.nose-stage.done .mote{display:none}
+@keyframes mote{0%{opacity:0;transform:translate(0,0) scale(.6)}18%{opacity:.85}100%{opacity:0;transform:translate(var(--dx,0),-190px) scale(1.25)}}
+.progress{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:var(--r);padding:14px;background:var(--panel)}
+.progress .track{height:4px}
+.track.sim i{background:linear-gradient(90deg,#7f97bb,var(--sim))}
+.chk{display:flex;gap:12px;align-items:flex-start;font-size:14px;cursor:pointer}
+.chk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--gold);flex:none}
+.chk b{display:block;font-weight:500}
+.chk small{display:block;color:var(--muted);font-size:12.5px}
+.match-score{display:flex;align-items:baseline;gap:8px;margin-top:6px;flex-wrap:wrap}
+.match-score b{font-family:var(--display);font-weight:400;font-size:34px;line-height:1;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.match-score b.sim{color:var(--sim)}
+.match-score small{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ch-bars{display:flex;align-items:flex-end;gap:3px;height:120px;border:1px solid var(--line);border-radius:var(--r);padding:10px 10px 4px;background:var(--panel)}
+.ch-bars .cb{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.ch-bars .cb i{display:block;width:100%;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--gold-hi),var(--gold))}
+.ch-bars .cb small{font-family:var(--mono);font-size:8.5px;color:var(--dim)}
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.ch-grid span{border:1px solid rgba(201,164,92,.14);border-radius:8px;padding:5px 7px;overflow-wrap:anywhere}
+.ch-grid b{display:block;color:var(--gold);font-weight:500}
+.ch-grid small{color:var(--dim)}
+@media (max-width:360px){.seg button{font-size:12.5px;gap:6px;letter-spacing:0}.seg button svg{width:15px;height:15px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (max-width:360px){.hero .big{font-size:38px}.tier{grid-template-columns:1fr}.code-row{grid-template-columns:1fr auto}.code-row svg{grid-column:1/-1}}
 </style>
@@ -408,7 +464,8 @@ const LOGO = { emblem: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDA
      Recognition     – barcode uit foto (BarcodeDetector / ZXing), beeldherkenning (Claude)
      Store           – opslagadapters: account (claude db, alleen in Claude), apparaat (IndexedDB in de PWA, localStorage als terugval)
      Library         – geurbibliotheek: parfums, lijsten, beoordelingen
-     ScentHardware   – driverregister voor toekomstige geursensor/geurmodule (nu: simulatie)
+     ScentHardware   – driverregister: DemoSensor (simulatie), RealSensor (externe e-neus via Bluetooth/native), geurmodule
+     ScentRecognitionEngine – vergelijkt metingen met opgeslagen geurprofielen (los van hardware)
      UI              – router, schermen, componenten
    ===================================================================== */
 
@@ -489,6 +546,8 @@ const ICON = {
   send: I('<path d="M4 12l16-8-6 16-2-6z"/><path d="M12 14l8-10"/>'),
   sparkle: I('<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>'),
   list: I('<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>'),
+  aroma: I('<path d="M12 21.5a5 5 0 0 0 5-5c0-3.2-5-9-5-9s-5 5.8-5 9a5 5 0 0 0 5 5z"/><path d="M8.5 2.5c.9.8.9 1.7 0 2.5M12 1.5c.9.8.9 1.7 0 2.5M15.5 2.5c.9.8.9 1.7 0 2.5"/><path d="M10 16.5a2 2 0 0 0 2 2" opacity=".6"/>'),
+  bt: I('<path d="M7 7l10 10-5 4V3l5 4L7 17"/>'),
 };
 
 /* ---------------------------- Catalog ------------------------------ */
@@ -769,6 +828,8 @@ const Library = {
   all() { return [...this.items.values()]; },
   get(id) { return this.items.get(id) || null; },
   has(id) { return this.items.has(id); },
+  /** Bestaand parfum met hetzelfde merk en dezelfde naam (genormaliseerd), om onbedoelde dubbele parfums te voorkomen. */
+  findDuplicate(brand, name, exceptId) { const k = norm(brand + " " + name); if (!k) return null; return this.all().find((p) => p.id !== exceptId && norm(p.brand + " " + p.name) === k) || null; },
   async save(perfume) {
     const rec = perfume.source === "catalog" && !this.has(perfume.id) ? this._fromCatalog(perfume) : { rating: 0, comment: "", favorite: false, lists: [], testedOn: today(), scentProfiles: [], image: null, ...perfume, savedAt: perfume.savedAt || Date.now(), updatedAt: Date.now() };
     this.items.set(rec.id, rec); await this._put("p-" + rec.id, rec); this.emit(); return rec;
@@ -887,9 +948,10 @@ const ScentMemory = {
     if (!["simulated", "sensor"].includes(source)) throw new Error("bron moet 'simulated' of 'sensor' zijn");
     const at = new Date(m.capturedAt); if (!m.capturedAt || isNaN(at)) throw new Error("ongeldige meetdatum");
     if (at.getTime() > Date.now() + 864e5) throw new Error("meetdatum ligt in de toekomst");
-    if (!Array.isArray(m.axes) || !m.axes.length) throw new Error("geen geurassen");
+    const rawOnly = source === "sensor" && !!m.uncalibrated && Array.isArray(m.channels) && m.channels.length > 0; /* echte, ongekalibreerde meting: alleen ruwe kanalen */
+    if (!rawOnly && (!Array.isArray(m.axes) || !m.axes.length)) throw new Error("geen geurassen");
     const byKey = {};
-    m.axes.forEach((x) => {
+    (Array.isArray(m.axes) ? m.axes : []).forEach((x) => {
       const ax = AXES.find((a) => a.key === (x && x.key)); if (!ax) throw new Error("onbekende geuras '" + String(x && x.key).slice(0, 20) + "'");
       if (typeof x.value !== "number" || !isFinite(x.value) || x.value < 0 || x.value > 1) throw new Error("ongeldige waarde voor '" + ax.key + "'");
       byKey[ax.key] = x.value;
@@ -904,12 +966,18 @@ const ScentMemory = {
     const out = {
       schema: "scentphone.measurement", version: legacy ? "0.1" : "1.0", id: typeof m.id === "string" && m.id ? m.id.slice(0, 64) : uid("ms"),
       perfumeId: perfumeId || (typeof m.perfumeId === "string" ? m.perfumeId : ""), source, simulated: source === "simulated", capturedAt: at.toISOString(),
-      device: { id: String(dev.id || "").slice(0, 64), name: String(dev.name || (source === "simulated" ? "Demo-geursensor (virtueel)" : "Onbekend apparaat")).slice(0, 80), kind: "sensor", firmware: String(dev.firmware || "").slice(0, 32) },
+      device: { id: String(dev.id || "").slice(0, 64), name: String(dev.name || (source === "simulated" ? "Demo-geursensor (virtueel)" : "Onbekend apparaat")).slice(0, 80), kind: "sensor", firmware: String(dev.firmware || "").slice(0, 32), ...(dev.model ? { model: String(dev.model).slice(0, 64) } : {}) },
       axes: AXES.map((a) => ({ key: a.key, label: a.label, value: byKey[a.key] ?? 0 })), channels, conditions: cond && (cond.tempC !== null || cond.humidity !== null) ? cond : null,
     };
     if (m.simulation && typeof m.simulation === "object") out.simulation = { basis: String(m.simulation.basis || "").slice(0, 120), variation: num(m.simulation.variation), seed: num(m.simulation.seed), run: num(m.simulation.run) };
     if (m.calibration && typeof m.calibration === "object") out.calibration = JSON.parse(JSON.stringify(m.calibration).slice(0, 4000) || "{}");
     if (m.imported) out.imported = true;
+    if (source === "sensor" && m.uncalibrated) out.uncalibrated = true;
+    if (m.recognition && typeof m.recognition === "object" && Array.isArray(m.recognition.top)) { /* bewaard herkenningsresultaat (Geurherkenning 1.0) */
+      const ra = new Date(m.recognition.at);
+      out.recognition = { engine: String(m.recognition.engine || "").slice(0, 16), method: String(m.recognition.method || "").slice(0, 160), at: isNaN(ra) ? null : ra.toISOString(),
+        top: m.recognition.top.filter((x) => x && typeof x.score === "number" && isFinite(x.score)).slice(0, 5).map((x) => ({ perfumeId: String(x.perfumeId || "").slice(0, 64), brand: String(x.brand || "").slice(0, 80), name: String(x.name || "").slice(0, 80), score: Math.max(0, Math.min(100, Math.round(x.score))) })) };
+    }
     if (legacy) out.legacy = true;
     return out;
   },
@@ -944,7 +1012,7 @@ const ScentMemory = {
   /* ---------- Export / import ---------- */
   buildExport() {
     return {
-      schema: "scentphone.export", version: this.version, exportedAt: new Date().toISOString(), app: "ScentPhone prototype 0.2",
+      schema: "scentphone.export", version: this.version, exportedAt: new Date().toISOString(), app: "ScentPhone 0.4",
       notice: "Metingen met source 'simulated' zijn gesimuleerd en geen echte geurmetingen. Foto's en persoonlijke opmerkingen zijn niet meegenomen.",
       profiles: Library.all().map((p) => ({ perfume: { id: p.id, brand: p.brand, name: p.name, concentration: p.concentration || "", family: p.family || "", top: p.top || [], heart: p.heart || [], base: p.base || [], dataSource: p.source || "manual" }, measurements: this.measurements(p) })),
     };
@@ -997,10 +1065,10 @@ const ScentMemory = {
  * Uitzondering: onaangeroerde voorbeeldparfums (nooit gewijzigd sinds ze automatisch zijn aangemaakt) worden vervangen door jouw versie.
  */
 const Backup = {
-  version: "1.0",
+  version: "1.1", /* 1.1 = 1.0 + optionele velden (recognition, uncalibrated, device.model); oude 1.0-bestanden blijven leesbaar */
   build() {
     return {
-      schema: "scentphone.backup", version: this.version, exportedAt: new Date().toISOString(), app: "ScentPhone 0.3" + (STANDALONE ? " (zelfstandig)" : " (Claude)"),
+      schema: "scentphone.backup", version: this.version, exportedAt: new Date().toISOString(), app: "ScentPhone 0.4" + (STANDALONE ? " (zelfstandig)" : " (Claude)"),
       notice: "Volledige back-up van ScentPhone. Metingen met source 'simulated' zijn gesimuleerd en geen echte geurmetingen.",
       settings: { name: Library.settings.name || "" }, lists: Library.lists,
       perfumes: Library.all().map((p) => { const { pristine, ...rest } = p; return { ...rest, scentProfiles: ScentMemory.measurements(p) }; }),
@@ -1051,7 +1119,12 @@ const Backup = {
     if (rep.lists) await Library._put("meta-lists", { items: Library.lists, updatedAt: Date.now() });
     for (const p0 of b.perfumes) {
       const p = { ...p0, lists: p0.lists.map((x) => map[x]).filter(Boolean) };
-      const cur = Library.get(p.id);
+      let cur = Library.get(p.id);
+      if (!cur) { /* zelfde parfum onder een ander id (bijv. op een ander toestel handmatig ingevoerd): niet dubbel toevoegen */
+        const twin = Library.findDuplicate(p.brand, p.name, p.id);
+        if (twin && this._untouchedExample(twin)) { Library.items.delete(twin.id); await Library._remove("p-" + twin.id); Library.items.set(p.id, p); await Library._put("p-" + p.id, p); rep.replacedExamples++; continue; }
+        if (twin) { cur = twin; rep.merged = (rep.merged || 0) + 1; }
+      }
       if (!cur) { Library.items.set(p.id, p); await Library._put("p-" + p.id, p); rep.added++; continue; }
       if (this._untouchedExample(cur)) { Library.items.set(p.id, p); await Library._put("p-" + p.id, p); rep.replacedExamples++; continue; }
       /* bestaand eigen parfum: niets overschrijven, alleen ontbrekende metingen toevoegen */
@@ -1090,13 +1163,206 @@ async function saveFile(filename, text, copyTitle) {
 /** Compatibele naam voor bestaande aanroepen (lab, sensor-driver). */
 function simulateProfile(perfume, device, run = 0) { return ScentMemory.simulate(perfume, device, run); }
 
-class SimulatedSensor {
-  constructor() { this.id = "sim-sensor"; this.name = "Demo-geursensor (virtueel)"; this.kind = "sensor"; this.simulated = true; this._on = false; }
-  async connect() { await new Promise((r) => setTimeout(r, 700)); this._on = true; return true; }
+/* ======================= Geurherkenning 1.0 =======================
+ * Drie strikt gescheiden onderdelen:
+ *   DemoSensor             – virtuele sensor. Maakt uitsluitend gesimuleerde metingen (source "simulated", simulated: true).
+ *   RealSensor             – driver voor een externe elektronische neus met meerdere sensoren (bijv. MOS-array).
+ *                            Transport: Web Bluetooth (Chrome/Edge op Android en desktop) of een native brug
+ *                            (toekomstige iOS/Android-app via Capacitor: window.ScentPhoneNative.sensor).
+ *                            Meldt zich pas als "verbonden" nadat een geldig meetframe is ontvangen, en valt terug
+ *                            naar "geen gegevens" als er langer dan RealSensor.STALE_MS niets binnenkomt.
+ *   ScentRecognitionEngine – vergelijkt een meting met opgeslagen geurprofielen. Kent geen hardware.
+ * Protocol voor echte sensoren: zie SENSOR-PROTOCOL.md (scentphone-enose/1).
+ */
+const abortError = () => { const e = new Error("Meting gestopt."); e.name = "AbortError"; return e; };
+const sleep = (ms, signal) => new Promise((res, rej) => {
+  if (signal && signal.aborted) return rej(abortError());
+  const tm = setTimeout(res, ms);
+  if (signal) signal.addEventListener("abort", () => { clearTimeout(tm); rej(abortError()); }, { once: true });
+});
+const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent || "") || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+class DemoSensor {
+  constructor() { this.id = "sim-sensor"; this.name = "Demo-geursensor (virtueel)"; this.kind = "sensor"; this.simulated = true; this.transport = "virtueel"; this._on = false; }
+  async connect() { await sleep(700); this._on = true; return true; }
   async disconnect() { this._on = false; }
   isConnected() { return this._on; }
-  async measure(ctx) { if (!this._on) throw new Error("Verbind eerst de demo-sensor."); await new Promise((r) => setTimeout(r, 1400)); return simulateProfile(ctx.perfume, this, (ctx.perfume.scentProfiles || []).length + (ctx.run || 0) * 101); }
+  /** ctx: { perfume, run?, onProgress?(fase), signal? }. Zonder onProgress: korte meting zoals voorheen (lab, geurgeheugen). */
+  async measure(ctx) {
+    if (!this._on) throw new Error("Verbind eerst de demo-sensor.");
+    if (!ctx || !ctx.perfume) throw new Error("Kies een parfum om te simuleren.");
+    if (typeof ctx.onProgress !== "function") await sleep(1400, ctx.signal);
+    else for (const ph of DemoSensor.PHASES) { ctx.onProgress(ph); await sleep(ph.ms, ctx.signal); }
+    return simulateProfile(ctx.perfume, this, (ctx.perfume.scentProfiles || []).length + (ctx.run || 0) * 101);
+  }
 }
+DemoSensor.PHASES = [
+  { key: "baseline", label: "Basislijn van de demo-sensor bepalen", pct: 10, ms: 700 },
+  { key: "sample", label: "Gesimuleerd monster opnemen", pct: 34, ms: 1300 },
+  { key: "stabilize", label: "Signaal stabiliseren (gesimuleerd)", pct: 60, ms: 900 },
+  { key: "profile", label: "Geurprofiel berekenen", pct: 80, ms: 700 },
+];
+const SimulatedSensor = DemoSensor; /* oude naam blijft bruikbaar */
+
+/* ---------- Echte sensor: protocol, transports, driver ---------- */
+const SENSOR_PROTOCOL = {
+  name: "scentphone-enose/1",
+  service: "8f1e0001-5c3e-4b7a-9d2f-0c5e0b5e0001", /* GATT-service van de ScentPhone-neus */
+  data: "8f1e0002-5c3e-4b7a-9d2f-0c5e0b5e0001",    /* notify: meetframes */
+  info: "8f1e0004-5c3e-4b7a-9d2f-0c5e0b5e0001",    /* read (optioneel): apparaatinfo als JSON */
+  magic: 0x53, version: 1, maxChannels: 64,
+};
+/** Frame v1: [0]=0x53 'S', [1]=versie 1, [2]=aantal kanalen N (1–64), [3]=vlaggen (bit0: omgevingsdata),
+ *  daarna N × uint16 LE ruwe kanaalwaarden, en bij bit0: int16 LE temperatuur ×100 (°C) + uint16 LE luchtvochtigheid ×100 (%). */
+function decodeSensorFrame(input) {
+  const dv = input instanceof DataView ? input : ArrayBuffer.isView(input) ? new DataView(input.buffer, input.byteOffset, input.byteLength) : input instanceof ArrayBuffer ? new DataView(input) : null;
+  if (!dv) throw new Error("geen binair frame");
+  if (dv.byteLength < 6) throw new Error("frame te kort");
+  if (dv.getUint8(0) !== SENSOR_PROTOCOL.magic) throw new Error("onbekend frame");
+  if (dv.getUint8(1) !== SENSOR_PROTOCOL.version) throw new Error("niet-ondersteunde protocolversie " + dv.getUint8(1));
+  const n = dv.getUint8(2), flags = dv.getUint8(3), env = !!(flags & 1);
+  if (n < 1 || n > SENSOR_PROTOCOL.maxChannels) throw new Error("ongeldig aantal kanalen");
+  if (dv.byteLength !== 4 + n * 2 + (env ? 4 : 0)) throw new Error("framelengte klopt niet");
+  const channels = [];
+  for (let i = 0; i < n; i++) channels.push({ id: "CH-" + String(i + 1).padStart(2, "0"), unit: "raw", value: dv.getUint16(4 + i * 2, true) });
+  let conditions = null;
+  if (env) { const o = 4 + n * 2; const tempC = dv.getInt16(o, true) / 100, humidity = dv.getUint16(o + 2, true) / 100; if (tempC > -40 && tempC < 85 && humidity >= 0 && humidity <= 100) conditions = { tempC, humidity }; }
+  return { channels, conditions, at: Date.now() };
+}
+const WebBluetoothTransport = {
+  id: "web-bluetooth", label: "Bluetooth via de browser",
+  supported() { return !!(window.isSecureContext && navigator.bluetooth && navigator.bluetooth.requestDevice); },
+  async open(onFrame, onClose) {
+    /* requestDevice moet direct vanuit een tik worden aangeroepen (gebruikersgebaar) */
+    const device = await navigator.bluetooth.requestDevice({ filters: [{ services: [SENSOR_PROTOCOL.service] }], optionalServices: [SENSOR_PROTOCOL.service] });
+    device.addEventListener("gattserverdisconnected", onClose);
+    const server = await device.gatt.connect();
+    const svc = await server.getPrimaryService(SENSOR_PROTOCOL.service);
+    const ch = await svc.getCharacteristic(SENSOR_PROTOCOL.data);
+    let info = null;
+    try { const ic = await svc.getCharacteristic(SENSOR_PROTOCOL.info); info = JSON.parse(new TextDecoder().decode(await ic.readValue())); } catch (e) { info = null; }
+    ch.addEventListener("characteristicvaluechanged", (ev) => onFrame(ev.target.value));
+    await ch.startNotifications();
+    return { id: device.id, name: device.name || "Elektronische neus", info, close: async () => { try { await ch.stopNotifications(); } catch (e) {} try { device.removeEventListener("gattserverdisconnected", onClose); device.gatt.disconnect(); } catch (e) {} } };
+  },
+};
+/** Native brug (toekomstige app). Verwacht window.ScentPhoneNative.sensor = { connect(opts) -> {id,name,info}, onFrame(cb), onDisconnect(cb), disconnect() }.
+ *  Frames mogen ArrayBuffer, Uint8Array of base64-tekst zijn. */
+const NativeBridgeTransport = {
+  id: "native", label: "ScentPhone-app (native Bluetooth)",
+  bridge() { return window.ScentPhoneNative && window.ScentPhoneNative.sensor; },
+  supported() { const b = this.bridge(); return !!(b && typeof b.connect === "function" && typeof b.onFrame === "function"); },
+  async open(onFrame, onClose) {
+    const b = this.bridge();
+    const toBytes = (x) => typeof x === "string" ? Uint8Array.from(atob(x), (c) => c.charCodeAt(0)) : x;
+    b.onFrame((x) => onFrame(toBytes(x)));
+    if (typeof b.onDisconnect === "function") b.onDisconnect(onClose);
+    const dev = (await b.connect({ protocol: SENSOR_PROTOCOL.name, service: SENSOR_PROTOCOL.service, data: SENSOR_PROTOCOL.data })) || {};
+    return { id: String(dev.id || "native"), name: String(dev.name || "Elektronische neus"), info: dev.info || null, close: async () => { try { await b.disconnect(); } catch (e) {} } };
+  },
+};
+
+class RealSensor {
+  constructor() {
+    this.id = "real-sensor"; this.name = "Externe elektronische neus"; this.kind = "sensor"; this.simulated = false;
+    this.state = "idle"; this.error = ""; this.link = null; this.device = null; this.lastFrame = null; this.lastFrameAt = 0;
+    this.frames = 0; this.badFrames = 0; this._collect = null; this._first = null; this._watch = null; this._listeners = new Set();
+    /** Kalibratie zet ruwe kanalen om in geurrichtingen. Formaat: { model, channels:[ids], weights:{ asKey:[gewicht per kanaal] } }.
+     *  Zonder kalibratie worden metingen bewaard als "ongekalibreerd" (alleen ruwe kanalen). */
+    this.calibration = null;
+  }
+  transport() { return NativeBridgeTransport.supported() ? NativeBridgeTransport : WebBluetoothTransport.supported() ? WebBluetoothTransport : null; }
+  support() {
+    const tr = this.transport(); if (tr) return { ok: true, via: tr.label };
+    if (isIOS()) return { ok: false, reason: "ios" };
+    if (window.isSecureContext === false) return { ok: false, reason: "insecure" };
+    return { ok: false, reason: "browser" };
+  }
+  on(fn) { this._listeners.add(fn); return () => this._listeners.delete(fn); }
+  _set(state, error = "") { this.state = state; this.error = error; this._listeners.forEach((f) => { try { f(state); } catch (e) {} }); }
+  /** Alleen waar als er verbinding is én er recent geldige meetgegevens binnenkwamen. */
+  isConnected() { return this.state === "connected" && !!this.link && Date.now() - this.lastFrameAt < RealSensor.STALE_MS; }
+  async connect() {
+    if (this.state === "connecting" || this.state === "waiting") return false;
+    const tr = this.transport();
+    if (!tr) { this._set("unsupported"); throw new Error("Dit toestel of deze browser kan geen verbinding maken met een externe geursensor."); }
+    this.frames = 0; this.badFrames = 0; this.lastFrameAt = 0; this.lastFrame = null;
+    this._set("connecting");
+    try { this.link = await tr.open((x) => this._onFrame(x), () => this._onClose()); }
+    catch (e) {
+      this.link = null;
+      if (e && e.name === "NotFoundError") { this._set("idle"); return false; } /* gebruiker annuleerde de keuze */
+      this._set("error", "Verbinden lukte niet" + (e && e.message ? ": " + e.message : "."));
+      throw new Error(this.error);
+    }
+    this.device = { id: String(this.link.id || "").slice(0, 64), name: String(this.link.name || "Elektronische neus").slice(0, 80), model: String((this.link.info && this.link.info.model) || "").slice(0, 64), firmware: String((this.link.info && this.link.info.firmware) || "").slice(0, 32), via: tr.id };
+    this._set("waiting");
+    const ok = await new Promise((res) => { if (this.frames) return res(true); const tm = setTimeout(() => { this._first = null; res(false); }, RealSensor.FIRST_FRAME_MS); this._first = () => { clearTimeout(tm); this._first = null; res(true); }; });
+    if (!this.link) return false; /* tussendoor verbroken */
+    if (!ok) {
+      const l = this.link; this.link = null; try { await l.close(); } catch (e) {}
+      this._set("error", this.badFrames ? "Het apparaat stuurt gegevens in een onbekend formaat. Het moet het ScentPhone-sensorprotocol (" + SENSOR_PROTOCOL.name + ") gebruiken." : "Verbonden met het apparaat, maar er zijn geen meetgegevens ontvangen. De sensor is daarom niet als verbonden gemarkeerd.");
+      return false;
+    }
+    this._set("connected");
+    clearInterval(this._watch);
+    this._watch = setInterval(() => { if (this.state === "connected" && Date.now() - this.lastFrameAt >= RealSensor.STALE_MS) this._set("stale"); }, 1000);
+    return true;
+  }
+  _onFrame(x) {
+    let f; try { f = decodeSensorFrame(x); } catch (e) { this.badFrames++; return; }
+    this.lastFrame = f; this.lastFrameAt = f.at; this.frames++;
+    if (this._collect) this._collect.push(f);
+    if (this._first) this._first();
+    else if (this.state === "stale") this._set("connected");
+  }
+  _onClose() { clearInterval(this._watch); this.link = null; if (this._first) { const f = this._first; this._first = null; f(); } this._set("disconnected", "De verbinding met de sensor is verbroken."); }
+  async disconnect() { clearInterval(this._watch); const l = this.link; this.link = null; if (l) { try { await l.close(); } catch (e) {} } this._set("idle"); }
+  async _window(ms, from, to, label, ctx) {
+    this._collect = []; const t0 = Date.now();
+    try {
+      while (Date.now() - t0 < ms) {
+        if (!this.isConnected()) throw new Error("De sensor stuurt geen gegevens meer. De meting is gestopt; er is niets bewaard.");
+        ctx.onProgress && ctx.onProgress({ key: label, label, pct: from + (to - from) * Math.min(1, (Date.now() - t0) / ms) });
+        await sleep(250, ctx.signal);
+      }
+      return this._collect;
+    } finally { this._collect = null; }
+  }
+  static mean(frames) {
+    const n = frames[0].channels.length, ok = frames.filter((f) => f.channels.length === n);
+    return { n, count: ok.length, values: Array.from({ length: n }, (_, i) => ok.reduce((s, f) => s + f.channels[i].value, 0) / ok.length) };
+  }
+  applyCalibration(ids, response) {
+    const c = this.calibration; if (!c || !c.weights || !Array.isArray(c.channels) || c.channels.join("|") !== ids.join("|")) return null;
+    const raw = AXES.map((a) => { const w = c.weights[a.key] || []; return Math.max(0, response.reduce((s, v, i) => s + v * (w[i] || 0), 0)); });
+    const max = Math.max(...raw); if (!max) return null;
+    return AXES.map((a, i) => ({ key: a.key, label: a.label, value: +(raw[i] / max).toFixed(3) }));
+  }
+  /** Echte meting: basislijn (schone lucht) → monster → relatieve respons per kanaal. */
+  async measure(ctx = {}) {
+    if (!this.isConnected()) throw new Error("De echte sensor is niet verbonden of stuurt geen gegevens.");
+    const base = await this._window(RealSensor.BASELINE_MS, 4, 30, "Basislijn meten — houd het monster nog weg van de sensor", ctx);
+    const smp = await this._window(RealSensor.SAMPLE_MS, 30, 82, "Monster meten — houd de geurstrip of fles bij de sensor", ctx);
+    if (base.length < 3 || smp.length < 3) throw new Error("Te weinig meetgegevens ontvangen (" + base.length + " + " + smp.length + " frames). Er is niets bewaard.");
+    const b = RealSensor.mean(base), s = RealSensor.mean(smp);
+    if (b.n !== s.n) throw new Error("Het aantal sensorkanalen veranderde tijdens de meting. Er is niets bewaard.");
+    ctx.onProgress && ctx.onProgress({ key: "profile", label: "Sensorrespons berekenen", pct: 86 });
+    const ids = smp[0].channels.map((c) => c.id);
+    const response = s.values.map((v, i) => +((v - b.values[i]) / Math.max(1, b.values[i])).toFixed(4));
+    if (Math.max(...response.map(Math.abs)) < RealSensor.MIN_RESPONSE) throw new Error("Geen duidelijk geursignaal: de meting verschilt nauwelijks van de schone lucht. Houd het monster dichter bij de sensor en probeer opnieuw. Er is niets bewaard.");
+    const axes = this.applyCalibration(ids, response);
+    const cond = (smp[smp.length - 1] || {}).conditions || null;
+    return {
+      schema: "scentphone.measurement", version: "1.0", id: uid("ms"), perfumeId: "", source: "sensor", simulated: false,
+      device: { id: this.device.id, name: this.device.name, kind: "sensor", firmware: this.device.firmware, model: this.device.model },
+      capturedAt: new Date().toISOString(), axes: axes || AXES.map((a) => ({ key: a.key, label: a.label, value: 0 })), uncalibrated: !axes,
+      channels: ids.map((id, i) => ({ id, unit: "rel", value: response[i] })), conditions: cond,
+    };
+  }
+}
+RealSensor.STALE_MS = 5000; RealSensor.FIRST_FRAME_MS = 8000; RealSensor.BASELINE_MS = 3000; RealSensor.SAMPLE_MS = 8000; RealSensor.MIN_RESPONSE = 0.02; /* minimaal 2% verschil met de basislijn */
+
 class SimulatedEmitter {
   constructor() { this.id = "sim-emitter"; this.name = "Demo-geurmodule (virtueel)"; this.kind = "emitter"; this.simulated = true; this._on = false; }
   async connect() { await new Promise((r) => setTimeout(r, 700)); this._on = true; return true; }
@@ -1115,11 +1381,77 @@ class SimulatedEmitter {
 }
 const ScentHardware = {
   drivers: [], register(d) { this.drivers.push(d); }, sensors() { return this.drivers.filter((d) => d.kind === "sensor"); }, emitters() { return this.drivers.filter((d) => d.kind === "emitter"); },
+  demoSensor() { return this.sensors().find((d) => d.simulated); },
+  realSensor() { return this.sensors().find((d) => !d.simulated); },
   /** Echte geurweergave is pas mogelijk als er een niet-gesimuleerde emitter verbonden is. */
   canEmitRealScent() { return this.emitters().some((d) => !d.simulated && d.isConnected()); },
 };
-ScentHardware.register(new SimulatedSensor());
+ScentHardware.register(new DemoSensor()); /* blijft sensors()[0]: bestaande schermen gebruiken de demo-sensor */
+ScentHardware.register(new RealSensor());
 ScentHardware.register(new SimulatedEmitter());
+
+/* ---------- ScentRecognitionEngine ---------- */
+/** Vergelijkt een meting met opgeslagen geurprofielen. Eenvoudige, uitlegbare methode; de score is een
+ *  relatieve vergelijkingsscore binnen de eigen bibliotheek, géén bewezen nauwkeurigheid of trefkans.
+ *  - Demo/gekalibreerde meting: geurrichtingen (10 assen) vs. kenmerkprofiel uit geurnoten, plus eerdere metingen.
+ *  - Ongekalibreerde echte meting: ruwe kanalen vs. referentiemetingen van hetzelfde sensortype (zelfde kanalen). */
+const ScentRecognitionEngine = {
+  version: "1.0",
+  method: "Overeenkomst van geurrichtingen (correlatie + cosinus) en, waar aanwezig, eerdere referentiemetingen",
+  _vec(axes) { return AXES.map((a) => ((axes || []).find((x) => x.key === a.key) || { value: 0 }).value); },
+  /** Gelijkenis 0..1 van twee vectoren: gemiddelde van cosinus en (positieve) correlatie, zodat de vorm van het profiel telt. */
+  similarity(a, b) {
+    const n = Math.min(a.length, b.length); if (!n) return 0;
+    let d = 0, na = 0, nb = 0, ma = 0, mb = 0;
+    for (let i = 0; i < n; i++) { d += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; ma += a[i]; mb += b[i]; }
+    const cos = na && nb ? d / Math.sqrt(na * nb) : 0; ma /= n; mb /= n;
+    let c = 0, va = 0, vb = 0; for (let i = 0; i < n; i++) { c += (a[i] - ma) * (b[i] - mb); va += (a[i] - ma) ** 2; vb += (b[i] - mb) ** 2; }
+    const r = va && vb ? c / Math.sqrt(va * vb) : cos;
+    return clamp01((Math.max(0, cos) + Math.max(0, r)) / 2);
+  },
+  signature(m) { return (m.channels || []).map((c) => c.id).join("|") + "#" + ((m.device && m.device.model) || ""); },
+  calibrated(m) { return !m.uncalibrated && (m.axes || []).some((a) => a.value > 0); },
+  /** Opgeslagen metingen bij dit parfum die met de nieuwe meting vergelijkbaar zijn. */
+  references(perfume, m) {
+    const ms = ScentMemory.measurements(perfume).filter((x) => x.id !== m.id);
+    if (m.source === "sensor") return ms.filter((x) => x.source === "sensor" && x.channels.length && this.signature(x) === this.signature(m));
+    return ms.filter((x) => x.source === "simulated");
+  },
+  scoreFor(m, perfume) {
+    const parts = [], refs = this.references(perfume, m), tr = ScentMemory.traits(perfume);
+    if (m.source === "sensor") {
+      if (refs.length) parts.push({ key: "ref", label: "Referentiemetingen met deze sensor", weight: 0.8, value: Math.max(...refs.map((x) => this.similarity(m.channels.map((c) => c.value), x.channels.map((c) => c.value)))) });
+      if (this.calibrated(m) && tr) parts.push({ key: "traits", label: "Kenmerkprofiel uit geurnoten", weight: 0.2, value: this.similarity(this._vec(m.axes), this._vec(tr.axes)) });
+    } else {
+      if (tr) parts.push({ key: "traits", label: "Kenmerkprofiel uit geurnoten", weight: 0.7, value: this.similarity(this._vec(m.axes), this._vec(tr.axes)) });
+      const sims = refs.filter((x) => this.calibrated(x));
+      if (sims.length && tr) parts.push({ key: "ref", label: "Eerder opgeslagen demo-metingen", weight: 0.3, value: sims.reduce((s, x) => s + this.similarity(this._vec(m.axes), this._vec(x.axes)), 0) / sims.length });
+    }
+    if (!parts.length) return null;
+    const w = parts.reduce((s, p) => s + p.weight, 0);
+    return { score: Math.round((parts.reduce((s, p) => s + p.weight * p.value, 0) / w) * 100), parts, refs: refs.length };
+  },
+  /** Geurkenmerken van een meting: sterkste geurrichtingen en mogelijke geurfamilie. */
+  features(m) {
+    if (!this.calibrated(m)) return { axes: [], families: [], raw: true };
+    const level = (v) => (v >= 0.7 ? "Sterk" : v >= 0.45 ? "Duidelijk" : v >= 0.2 ? "Licht" : "Spoor");
+    const axes = m.axes.filter((a) => a.value >= 0.08).sort((a, b) => b.value - a.value).slice(0, 5).map((a) => ({ ...a, level: level(a.value) }));
+    return { axes, families: this.familyGuess(m), raw: false };
+  },
+  /** Prototype per geurfamilie = gemiddeld kenmerkprofiel van bekende parfums in die familie (catalogus + bibliotheek). */
+  familyGuess(m) {
+    const v = this._vec(m.axes), seen = new Set(), sum = {};
+    [...Library.all(), ...CATALOG].forEach((p) => { if (seen.has(p.id) || !p.family) return; seen.add(p.id); const tr = ScentMemory.traits(p); if (!tr) return; const s = sum[p.family] || (sum[p.family] = { n: 0, v: AXES.map(() => 0) }); s.n++; this._vec(tr.axes).forEach((x, i) => (s.v[i] += x)); });
+    return FAMILIES.map((f) => { const s = sum[f.id]; const proto = s ? s.v.map((x) => x / s.n) : AXES.map((a) => (FAMILY_BIAS[f.id] || {})[a.key] || 0); return { family: f, score: Math.round(this.similarity(v, proto) * 100) }; })
+      .sort((a, b) => b.score - a.score).slice(0, 2);
+  },
+  qualify(score) { return score >= 85 ? "Sterke overeenkomst" : score >= 70 ? "Duidelijke overeenkomst" : score >= 50 ? "Enige overeenkomst" : "Zwakke overeenkomst"; },
+  recognize(m, opts = {}) {
+    const pool = opts.pool || Library.all();
+    const scored = pool.map((p) => { const r = this.scoreFor(m, p); return r ? { perfume: p, ...r } : null; }).filter(Boolean).sort((a, b) => b.score - a.score);
+    return { engine: this.version, method: this.method, source: m.source, matches: scored.slice(0, opts.limit || 5), considered: scored.length, skipped: pool.length - scored.length, features: this.features(m), noReferences: m.source === "sensor" && !scored.length };
+  },
+};
 
 /* ---------------------------- Visuals ------------------------------ */
 function bottleSVG(b = {}, label = "") {
@@ -1175,7 +1507,8 @@ function radarSVG(profile, opts = {}) {
 
 /* ---------------------------- UI ----------------------------------- */
 const UI = {
-  stack: [{ name: "home" }], tab: "home", transient: new Map(), scan: { state: "idle" }, filters: { lib: { q: "", fam: "", list: "all", sort: "recent" }, disc: { q: "", fam: "" } },
+  stack: [{ name: "home" }], tab: "home", transient: new Map(), scan: { state: "idle" }, scanView: "bottle",
+  scent: { mode: "demo", sample: "", blind: false, running: false, pct: 0, steps: [], result: null, error: "", run: 0, ctrl: null }, filters: { lib: { q: "", fam: "", list: "all", sort: "recent" }, disc: { q: "", fam: "" } },
   go(name, params = {}) { this.stack.push({ name, params }); this.render(); },
   back() { if (this.stack.length > 1) { this.stack.pop(); this.render(); } },
   switchTab(tab) { this.tab = tab; this.stack = [{ name: tab }]; this.render(); },
@@ -1229,6 +1562,8 @@ function bindOpen() { /* bewust leeg: zie gedelegeerde handler hieronder */ }
 $("#main").addEventListener("click", (e) => {
   const seg = e.target.closest("[data-libview]");
   if (seg && $("#main").contains(seg)) { UI.libView = seg.dataset.libview; UI.render(); return; }
+  const sv = e.target.closest("[data-scanview]");
+  if (sv && $("#main").contains(sv)) { if (UI.scent.running && sv.dataset.scanview !== "scent") { UI.toast("Stop eerst de lopende meting."); return; } UI.scanView = sv.dataset.scanview; UI.render(); return; }
   const mem = e.target.closest("[data-mem]");
   if (mem && $("#main").contains(mem)) { if (Library.has(mem.dataset.mem)) UI.go("memory", { id: mem.dataset.mem }); else UI.toast("Dit geurprofiel kon niet worden gevonden.", true); return; }
   const el = e.target.closest("[data-open]");
@@ -1259,6 +1594,7 @@ const Screens = {
   },
 
   scan() {
+    if (UI.scanView === "scent") return Screens.scent({ embedded: true });
     const s = UI.scan;
     const vf = s.preview ? `<img src="${s.preview}" alt="Gekozen foto">${s.state === "busy" ? '<div class="frame"></div><div class="laser"></div>' : ""}`
       : `<div class="frame"></div><div class="laser"></div><div class="vf-empty">${ICON.camera}<span>Richt op de barcode of het etiket van de fles</span></div>`;
@@ -1275,7 +1611,7 @@ const Screens = {
     }
     return {
       title: "Parfum scannen",
-      html: `
+      html: `${scanSeg()}
       <div class="viewfinder" aria-live="polite">${vf}</div>
       ${steps ? `<div class="steps">${steps}</div>` : ""}
       ${result}
@@ -1296,7 +1632,7 @@ const Screens = {
         $("#toManual", m) && ($("#toManual", m).onclick = () => UI.go("form", { prefill: { barcode: UI.scan.code || "", image: UI.scan.thumb || null } }));
         $("#tryAI", m) && ($("#tryAI", m).onclick = () => Scanner.runAI());
         $("#retake", m) && ($("#retake", m).onclick = () => $("#fileCam").click());
-        $("#scanSave", m) && ($("#scanSave", m).onclick = async () => { await Library.save(UI.scan.perfume); UI.toast("Bewaard in je geurbibliotheek"); UI.render(); });
+        $("#scanSave", m) && ($("#scanSave", m).onclick = () => guardedSave(UI.scan.perfume, () => UI.render()));
         $("#codeForm", m).onsubmit = (e) => { e.preventDefault(); Scanner.byCode($("#codeInp", m).value); };
         $$("[data-code]", m).forEach((b) => (b.onclick = () => Scanner.byCode(b.dataset.code)));
         $("#moreCodes", m).onclick = () => UI.sheet(`<h3>Demo-barcodes</h3><div class="demo-codes">${CATALOG.map((p) => `<div class="code-row">${eanSVG(p.barcode)}<div class="meta"><b>${esc(p.brand)} ${esc(p.name)}</b><code>${p.barcode}</code></div><button class="btn sm ghost" data-code2="${p.barcode}" data-dismiss>Gebruik</button></div>`).join("")}</div>`, (s) => $$("[data-code2]", s).forEach((b) => b.addEventListener("click", () => Scanner.byCode(b.dataset.code2))));
@@ -1413,7 +1749,7 @@ const Screens = {
       </section>
       ${saved ? `<div class="actions"><button class="btn ghost" id="editBtn">${ICON.pen} Bewerken</button><button class="btn danger" id="delBtn">${ICON.trash} Verwijderen</button></div>` : ""}`,
       bind(m, tb) {
-        $("#saveBtn", m).onclick = async () => { await Library.save(p); UI.toast("Bewaard in je geurbibliotheek"); UI.render(); };
+        $("#saveBtn", m).onclick = () => guardedSave(p, () => UI.render());
         $("#smellBtn", m).onclick = () => smellSheet(p);
         $("#favBtn", tb) && ($("#favBtn", tb).onclick = async () => { await Library.update(p.id, { favorite: !p.favorite }); UI.toast(!p.favorite ? "Toegevoegd aan favorieten" : "Uit favorieten gehaald"); UI.render(); });
         $$("#stars [data-r]", m).forEach((b) => (b.onclick = async () => { const r = +b.dataset.r; await Library.update(p.id, { rating: p.rating === r ? 0 : r }); UI.render(); }));
@@ -1435,7 +1771,7 @@ const Screens = {
     };
   },
 
-  form({ editId, prefill = {} }) {
+  form({ editId, prefill = {}, after }) {
     const ed = editId ? Library.get(editId) : null;
     const v = ed || { brand: "", name: "", family: "", concentration: "", top: [], heart: [], base: [], description: "", barcode: "", testedOn: today(), rating: 0, image: null, ...prefill };
     UI._formImage = v.image || null;
@@ -1479,10 +1815,15 @@ const Screens = {
           if (!ok) return;
           const data = { brand: val("#fBrand"), name: val("#fName"), family: val("#fFam"), concentration: val("#fConc"), top: splitNotes(val("#fTop")), heart: splitNotes(val("#fHeart")), base: splitNotes(val("#fBase")), description: val("#fDesc"), testedOn: val("#fDate"), barcode: val("#fCode"), image: UI._formImage };
           try {
-            if (ed) { await Library.update(ed.id, data); UI.toast("Wijzigingen bewaard"); UI.back(); }
-            else {
-              const rec = await Library.save({ id: uid("m"), source: prefill.source || "manual", ...data, bottle: { shape: "square", liquid: famOf(data.family).color } });
-              UI.toast("Bewaard in je geurbibliotheek"); UI.stack.pop(); UI.go("perfume", { id: rec.id });
+            const dest = after === "memory" ? "memory" : "perfume";
+            if (ed) {
+              const upd = async () => { try { await Library.update(ed.id, data); UI.toast("Wijzigingen bewaard"); UI.back(); } catch (er) { UI.toast(er.message || "Bewaren lukte niet.", true); } };
+              const dup = norm(ed.brand + " " + ed.name) !== norm(data.brand + " " + data.name) && Library.findDuplicate(data.brand, data.name, ed.id);
+              if (dup) confirmDuplicate(dup, upd); else await upd();
+            } else {
+              const create = async () => { try { const rec = await Library.save({ id: uid("m"), source: prefill.source || "manual", ...data, bottle: { shape: "square", liquid: famOf(data.family).color } }); UI.toast("Bewaard in je geurbibliotheek"); UI.stack.pop(); UI.go(dest, { id: rec.id }); } catch (er) { UI.toast(er.message || "Bewaren lukte niet. Probeer het opnieuw.", true); } };
+              const dup = Library.findDuplicate(data.brand, data.name);
+              if (dup) confirmDuplicate(dup, create, () => { UI.stack.pop(); UI.go(dest, { id: dup.id }); }); else await create();
             }
           } catch (er) { UI.toast(er.message || "Bewaren lukte niet. Probeer het opnieuw.", true); }
         };
@@ -1502,12 +1843,14 @@ const Screens = {
       ["Opzoeken in productdatabase", "Demo", "warn", "Lokale demodatabase met " + CATALOG.length + " parfums"],
       STANDALONE ? ["Herkenning via tekst op het etiket", "Werkt", "ok", "Op je toestel (OCR), eerste keer internet nodig"] : ["Herkenning van de fles op beeld", "Werkt", "ok", "Via Claude, na toestemming"],
       ["Live camerabeeld in de app", "Beperkt", "warn", "De app gebruikt de fotocamera van je toestel"],
-      ["Elektronische geursensor", "Simulatie", "sim", "Gesimuleerde gegevens, geen meting"],
+      ["Geurherkenning (Scannen → Geurherkenning)", "Demo", "sim", "Demomodus met gesimuleerde metingen; vergelijkingsscore, geen bewezen nauwkeurigheid"],
+      ["Demo-geursensor", "Simulatie", "sim", "Gesimuleerde gegevens, geen meting"],
+      ["Echte elektronische neus", "Voorbereid", "future", "Bluetooth via Chrome/Edge op Android en desktop; iPhone via toekomstige native app"],
+      ["Geurprofielen beheren", "Werkt", "ok", "Bibliotheek → Geurgeheugen: toevoegen, bewerken, metingen, herkomst"],
       ["Geurprofiel naar geurmodule sturen", "Simulatie", "sim", "Pakket wordt opgebouwd, niet verzonden"],
       ["Geur echt laten ruiken", "Toekomst", "future", "Vereist ScentPhone-geurhardware"],
       ["Digitaal geurgeheugen: profielen bewaren en zoeken", "Werkt", "ok"],
       ["Geuren vergelijken", "Schatting", "warn", "Berekend uit opgegeven noten, geen gemeten overeenkomst"],
-      ["Geurherkenning", "Simulatie", "sim", "Gesimuleerde meting tegen opgeslagen profielen"],
       ["Export en import van geurprofielen", "Werkt", "ok", "JSON-bestand met controle"],
       ["Echte sensormetingen opslaan", "Toekomst", "future", "Opslag is er klaar voor (bron: sensor)"],
       ["Engelse taal", "In voorbereiding", "future"],
@@ -1528,7 +1871,7 @@ const Screens = {
         <div class="actions"><button class="btn" id="bkExp">${ICON.download} Back-up maken</button><button class="btn ghost" id="bkImp">${ICON.upload} Terugzetten</button></div></section>
       <section class="section"><h2 class="sec">Wat werkt in deze versie</h2><div class="status-list">${status.map(([n, s, k, d]) => `<div><span>${esc(n)}${d ? `<small>${esc(d)}</small>` : ""}</span><span class="pill ${k}">${esc(s)}</span></div>`).join("")}</div></section>
       <button class="btn danger block" id="wipe">${ICON.trash} Alle gegevens wissen</button>
-      <p class="small muted" style="text-align:center">ScentPhone ${STANDALONE ? "0.3 · zelfstandige app" : "prototype 0.3"} · oktober 2026</p>`,
+      <p class="small muted" style="text-align:center">ScentPhone ${STANDALONE ? "0.4 · zelfstandige app" : "prototype 0.4"} · oktober 2026</p>`,
       bind(m) {
         $("#editName", m).onclick = () => UI.sheet(`<h3>Je naam</h3><form id="nf" class="form" novalidate><input class="inp" id="nIn" maxlength="40" value="${esc(Library.settings.name)}" placeholder="Voornaam" aria-label="Naam"><div class="actions"><button type="button" class="btn ghost" data-dismiss>Annuleren</button><button class="btn primary" type="submit">Bewaren</button></div></form>`,
           (s, close) => { $("#nf", s).onsubmit = async (e) => { e.preventDefault(); await Library.saveSettings({ name: $("#nIn", s).value.trim() }); close(); UI.render(); }; });
@@ -1550,24 +1893,34 @@ const Screens = {
     items.sort((a, b) => ((b.ms[0] && b.ms[0].capturedAt) || "").localeCompare((a.ms[0] && a.ms[0].capturedAt) || "") || a.p.brand.localeCompare(b.p.brand, "nl"));
     const totalMs = all.reduce((s, p) => s + ScentMemory.measurements(p).length, 0);
     const simMs = all.reduce((s, p) => s + ScentMemory.measurements(p).filter((m) => m.source === "simulated").length, 0);
+    const mf = UI.memFilter || "all";
+    if (mf === "demo") items = items.filter(({ ms }) => ms.some((x) => x.source === "simulated"));
+    else if (mf === "sensor") items = items.filter(({ ms }) => ms.some((x) => x.source === "sensor"));
+    else if (mf === "none") items = items.filter(({ ms }) => !ms.length);
     return {
       title: "Geurgeheugen",
+      headerRight: `<button class="iconbtn" id="addManual" aria-label="Nieuw geurprofiel">${ICON.plus}</button>`,
       html: `${libSeg()}
-      <div class="notice gold">${ICON.db}<div>Elk bewaard parfum heeft hier een digitaal geurprofiel: je opgegeven geurgegevens, een daaruit berekend kenmerkprofiel en de metingen. Metingen zijn nu altijd <b>gesimuleerd</b>; echte sensormetingen krijgen straks een eigen label.</div></div>
+      <div class="notice gold">${ICON.db}<div>Elk bewaard parfum heeft hier een digitaal geurprofiel: naam, merk, geurfamilie, geurnoten, foto, een daaruit berekend kenmerkprofiel en de metingen. Demo-metingen zijn altijd als <b>simulatie</b> gelabeld; metingen van een echte sensor krijgen het label <b>Sensor</b>.</div></div>
+      <button class="btn ghost block" id="memNew">${ICON.plus} Nieuw geurprofiel</button>
       <div class="actions"><button class="btn" id="goCmp" ${all.length > 1 ? "" : "disabled"}>${ICON.compare} Vergelijk geuren</button><button class="btn" id="goRec" ${all.length ? "" : "disabled"}>${ICON.target} Herkenning</button></div>
       <div class="search">${ICON.search}<input id="memQ" type="search" placeholder="Zoek op merk, naam of geurnoot" value="${esc(UI.memQ || "")}" aria-label="Zoeken in geurgeheugen"></div>
+      <div class="chips" role="group" aria-label="Herkomst van metingen">${[["all", "Alle"], ["demo", "Demo-metingen"], ["sensor", "Echte sensor"], ["none", "Zonder metingen"]].map(([k, l]) => `<button class="chip" data-memf="${k}" aria-pressed="${mf === k}">${l}</button>`).join("")}</div>
       <div class="toolbar"><span class="small muted">${items.length} van ${all.length} profielen · ${totalMs} metingen (${simMs} gesimuleerd${totalMs - simMs ? ", " + (totalMs - simMs) + " sensor" : ""})</span></div>
       ${items.length ? `<div class="list">${items.map(({ p, ms, tr }) => `<button class="item" data-mem="${esc(p.id)}"><div class="thumb">${visual(p)}</div><div class="meta"><span class="brand">${esc(p.brand)}</span><span class="name">${esc(p.name)}</span><span class="sub">${esc(famOf(p.family).label)} · ${ms.length ? ms.length + (ms.length === 1 ? " meting" : " metingen") + " · " + esc(fmtDate(ms[0].capturedAt.slice(0, 10))) : "nog geen metingen"}${tr ? "" : " · noten onvolledig"}</span></div><div class="end">${ms.length ? `<span class="pill ${ms[0].source === "sensor" ? "ok" : "sim"}">${ms[0].source === "sensor" ? "Sensor" : "Sim"}</span>` : ""}</div></button>`).join("")}</div>`
-        : all.length ? `<div class="empty">${ICON.search}<b>Geen profielen gevonden</b><p class="muted small">Zoek op een ander merk, een andere naam of geurnoot.</p></div>` : `<div class="empty">${ICON.db}<b>Nog geen geurprofielen</b><p class="muted small">Bewaar een parfum; het krijgt automatisch een digitaal geurprofiel.</p></div>`}
+        : all.length ? `<div class="empty">${ICON.search}<b>Geen profielen gevonden</b><p class="muted small">Zoek op een ander merk, een andere naam of geurnoot, of kies een ander filter.</p></div>` : `<div class="empty">${ICON.db}<b>Nog geen geurprofielen</b><p class="muted small">Bewaar een parfum; het krijgt automatisch een digitaal geurprofiel.</p></div>`}
       <section class="section"><h2 class="sec">Back-up</h2><p class="small muted">Exporteer geurprofielen en metingen als JSON-bestand, of importeer een eerdere export. Importeren voegt alleen toe en overschrijft nooit bestaande parfums.</p>
         <div class="actions"><button class="btn ghost" id="expBtn" ${all.length ? "" : "disabled"}>${ICON.download} Exporteren</button><button class="btn ghost" id="impBtn">${ICON.upload} Importeren</button></div></section>`,
-      bind(m) {
+      bind(m, tb) {
         const inp = $("#memQ", m);
         inp.oninput = debounce(() => { UI.memQ = inp.value; const pos = inp.selectionStart; UI.render(); const n = $("#memQ"); if (n) { n.focus(); n.setSelectionRange(pos, pos); } }, 250);
         const c = $("#goCmp", m); if (c) c.onclick = () => UI.go("compare", {});
         const r = $("#goRec", m); if (r) r.onclick = () => UI.go("recognize", {});
         const ex = $("#expBtn", m); if (ex) ex.onclick = () => exportProfiles();
         const im = $("#impBtn", m); if (im) im.onclick = () => importSheet();
+        $$("[data-memf]", m).forEach((b) => (b.onclick = () => { UI.memFilter = b.dataset.memf; UI.render(); }));
+        $("#memNew", m).onclick = () => UI.go("form", { after: "memory" });
+        const add = $("#addManual", tb); if (add) add.onclick = () => UI.go("form", { after: "memory" });
       },
     };
   },
@@ -1580,9 +1933,9 @@ const Screens = {
     return {
       title: p.name,
       html: `
-      <div class="row" style="gap:14px"><div class="thumb" style="width:72px;height:90px;flex:none">${visual(p)}</div><div style="min-width:0"><div class="eyebrow">${esc(p.brand)}</div><div style="font-family:var(--display);font-size:26px;line-height:1.1;overflow-wrap:anywhere">${esc(p.name)}</div><button class="btn sm ghost" data-open="${esc(p.id)}" style="margin-top:8px">Parfumprofiel</button></div></div>
+      <div class="row" style="gap:14px"><div class="thumb" style="width:72px;height:90px;flex:none">${visual(p)}</div><div style="min-width:0"><div class="eyebrow">${esc(p.brand)}</div><div style="font-family:var(--display);font-size:26px;line-height:1.1;overflow-wrap:anywhere">${esc(p.name)}</div><div class="row wrap" style="gap:8px;margin-top:8px"><button class="btn sm ghost" data-open="${esc(p.id)}">Parfumprofiel</button><button class="btn sm ghost" id="mEdit">${ICON.pen} Bewerken</button></div></div></div>
       <section class="section"><div class="row between"><h2 class="sec">Opgegeven geurgegevens</h2><span class="pill">${esc(SOURCE_LABEL[p.source] || "Eigen invoer")}</span></div>
-        <div class="kvs">${notesRow("Geurfamilie", p.family ? [fam.label] : [])}${notesRow(t("top"), p.top)}${notesRow(t("heart"), p.heart)}${notesRow(t("base"), p.base)}</div>
+        <div class="kvs">${notesRow("Geurfamilie", p.family ? [fam.label] : [])}${notesRow(t("top"), p.top)}${notesRow(t("heart"), p.heart)}${notesRow(t("base"), p.base)}${notesRow("Foto", p.image ? ["Eigen foto"] : [])}<div class="kv"><span>Metingen</span><span>${ms.length ? `${ms.filter((x) => x.source === "simulated").length} demo (simulatie) · ${ms.filter((x) => x.source === "sensor").length} echte sensor<br><span class="muted small">Laatste meting ${esc(new Date(ms[0].capturedAt).toLocaleString("nl-NL", { dateStyle: "medium", timeStyle: "short" }))}</span>` : '<span class="muted">Nog geen metingen</span>'}</span></div></div>
         <p class="hint">Deze gegevens komen uit ${p.source === "catalog" ? "de demo-catalogus" : p.source === "ai" ? "beeldherkenning" : p.source === "import" ? "een importbestand" : "je eigen invoer"} en worden door metingen nooit aangepast.</p></section>
       <section class="section"><div class="row between"><h2 class="sec">Kenmerkprofiel</h2><span class="pill">Berekend</span></div>
         ${tr ? `<div class="radar-wrap gold">${radarSVG(tr, { tone: "gold", label: "Kenmerkprofiel" })}<span class="pill wm">Geen meting</span></div>
@@ -1590,13 +1943,16 @@ const Screens = {
           : `<div class="notice gold">${ICON.info}<div>Te weinig herkenbare geurnoten om een kenmerkprofiel te berekenen. Vul de noten en geurfamilie aan in het parfumprofiel.</div></div>`}</section>
       <section class="section"><div class="row between"><h2 class="sec">Metingen</h2><span class="pill sim">${ms.length}</span></div>
         ${ms.length ? `<div class="meas">${ms.map((x, i) => `<details ${i === 0 ? "open" : ""}><summary><span class="pill ${x.source === "sensor" ? "ok" : "sim"}">${x.source === "sensor" ? "Sensor" : "Simulatie"}</span><span class="mmeta">${esc(new Date(x.capturedAt).toLocaleString("nl-NL", { dateStyle: "medium", timeStyle: "short" }))}<small>${esc(x.device.name)}${x.imported ? " · geïmporteerd" : ""}${x.legacy ? " · formaat v0.1" : ""}</small></span></summary>
-            <div class="radar-wrap">${radarSVG(x, { tone: x.source === "sensor" ? "gold" : "sim", label: "Meting" })}<span class="pill ${x.source === "sensor" ? "ok" : "sim"} wm">${x.source === "sensor" ? "Sensormeting" : "Gesimuleerd"}</span></div>
+            ${ScentRecognitionEngine.calibrated(x) ? `<div class="radar-wrap ${x.source === "sensor" ? "gold" : ""}">${radarSVG(x, { tone: x.source === "sensor" ? "gold" : "sim", label: "Meting" })}<span class="pill ${x.source === "sensor" ? "ok" : "sim"} wm">${x.source === "sensor" ? "Sensormeting" : "Gesimuleerd"}</span></div>` : `${channelBarsHTML(x)}<p class="small muted">Ongekalibreerde sensormeting: ruwe respons per kanaal, nog niet omgezet in geurrichtingen.</p>`}
             <p class="small muted">${x.source === "simulated" ? "Gesimuleerd: afgeleid van het kenmerkprofiel" + (x.simulation && x.simulation.variation ? " met vaste variatie van ±" + Math.round(x.simulation.variation * 100) + "%" : "") + ". Geen echte meting." : x.imported ? "Gemarkeerd als sensormeting in het importbestand; niet door deze app gemeten." : "Sensormeting."}</p>
+            <div class="kvs"><div class="kv"><span>Herkomst</span><span>${x.source === "sensor" ? "Echte sensor" : "Demomodus (simulatie)"}</span></div><div class="kv"><span>Apparaat</span><span>${esc(x.device.name)}${x.device.model ? " · " + esc(x.device.model) : ""}${x.device.firmware ? ` <span class="muted small">(${esc(x.device.firmware)})</span>` : ""}</span></div>${x.conditions ? `<div class="kv"><span>Omgeving</span><span>${x.conditions.tempC !== null ? esc(x.conditions.tempC) + " °C" : ""}${x.conditions.tempC !== null && x.conditions.humidity !== null ? " · " : ""}${x.conditions.humidity !== null ? esc(x.conditions.humidity) + "% luchtvochtigheid" : ""}</span></div>` : ""}${x.recognition && x.recognition.top.length ? `<div class="kv"><span>Herkenning</span><span>${x.recognition.top.slice(0, 3).map((y) => esc(y.brand + " " + y.name) + ` <span class="muted small">(${y.score})</span>`).join("<br>")}</span></div>` : ""}</div>
+            <details style="border:0;padding:0;background:none"><summary class="small" style="min-height:32px;color:var(--gold)">Meetgegevens (${x.channels.length} kanalen${x.source === "simulated" ? ", gesimuleerd" : ""})</summary>${channelTableHTML(x)}</details>
             <button class="btn sm danger" data-delm="${esc(x.id)}">${ICON.trash} Meting verwijderen</button></details>`).join("")}</div>`
           : `<p class="small muted">Nog geen metingen. Een echte meting vereist toekomstige ScentPhone-sensorhardware; maak nu een gesimuleerde meting om de werking te zien.</p>`}
         <div class="actions"><button class="btn" id="mSim" ${tr ? "" : "disabled"}>${ICON.chip} Simuleer meting</button><button class="btn ghost" id="mRec" ${tr ? "" : "disabled"}>${ICON.target} Herkenning</button></div>
         <button class="btn ghost block" id="mCmp" ${Library.items.size > 1 ? "" : "disabled"}>${ICON.compare} Vergelijk met ander parfum</button>
-      </section>`,
+      </section>
+      <button class="btn danger block" id="mDel">${ICON.trash} Geurprofiel en parfum verwijderen</button>`,
       bind(m) {
         const sim = $("#mSim", m);
         if (sim) sim.onclick = async () => {
@@ -1606,6 +1962,8 @@ const Screens = {
         };
         const rec = $("#mRec", m); if (rec) rec.onclick = () => UI.go("recognize", { id });
         const cmp = $("#mCmp", m); if (cmp) cmp.onclick = () => UI.go("compare", { a: id });
+        $("#mEdit", m).onclick = () => UI.go("form", { editId: id });
+        $("#mDel", m).onclick = () => UI.confirm("Geurprofiel verwijderen?", `${p.brand} ${p.name} wordt met alle metingen, je beoordeling en opmerkingen uit je bibliotheek verwijderd. Maak eventueel eerst een back-up.`, "Verwijderen", async () => { await Library.remove(id); UI.toast("Verwijderd"); UI.back(); });
         $$("[data-delm]", m).forEach((b) => (b.onclick = (e) => { e.preventDefault(); UI.confirm("Meting verwijderen?", "Alleen deze meting wordt verwijderd. Het parfum en je andere gegevens blijven bewaard.", "Verwijderen", async () => { await ScentMemory.removeMeasurement(id, b.dataset.delm); UI.toast("Meting verwijderd"); UI.render(); }); }));
       },
     };
@@ -1644,43 +2002,73 @@ const Screens = {
     };
   },
 
-  recognize(params) {
-    const all = Library.all().filter((p) => ScentMemory.traits(p)).sort((a, b) => a.brand.localeCompare(b.brand, "nl"));
-    const st = UI.rec || (UI.rec = {});
-    if (params.id && st.from !== params.id) { st.sel = params.id; st.from = params.id; st.result = null; }
-    if (!st.sel || !all.some((p) => p.id === st.sel)) st.sel = all[0] && all[0].id;
-    const r = st.result && st.result.perfumeId === st.sel ? st.result : null;
+  /* ------------------- Geurherkenning 1.0 (Scannen → Geurherkenning) ------------------- */
+  scent(params = {}) {
+    const st = UI.scent, embedded = !!params.embedded;
+    if (params.id && st.from !== params.id) { st.from = params.id; st.sample = params.id; st.mode = "demo"; st.result = null; st.error = ""; }
+    const real = ScentHardware.realSensor();
+    const pool = scentPool();
+    if (!st.sample || !pool.some((p) => p.id === st.sample)) st.sample = pool[0] && pool[0].id;
+    const isDemo = st.mode !== "real", r = st.result;
+    const canStart = !st.running && (isDemo ? pool.length > 0 : real.isConnected());
+    const stageState = st.running ? "run" : r ? "done" : "idle";
+    const C = 2 * Math.PI * 112;
+    const motes = Array.from({ length: 9 }, (_, i) => `<i class="mote" style="left:${18 + ((i * 37) % 64)}%;--dx:${((i % 3) - 1) * 18}px;animation-delay:${(i * 0.53).toFixed(2)}s"></i>`).join("");
+    const sampleName = (id) => { const p = Library.get(id); return p ? p.brand + " — " + p.name : "—"; };
+    const capText = st.running ? (isDemo ? (st.blindId ? "Verborgen demomonster wordt gesimuleerd" : "Demo: " + sampleName(st.runSample)) : "Echte sensor meet…")
+      : r ? (r.measurement.source === "sensor" ? "Meting van je sensor voltooid" : "Gesimuleerde meting voltooid")
+      : isDemo ? (pool.length ? "Kies een monster en start de demonstratie" : "Bewaar eerst parfums met geurnoten") : real.isConnected() ? "Klaar om te meten" : "Verbind eerst een echte sensor";
+    const stage = `<div class="nose-stage ${stageState}" id="snStage" aria-hidden="true">
+        <div class="cap-tl">${isDemo ? `<span class="pill sim">Simulatie</span>` : real.isConnected() ? `<span class="pill ok">Echte sensor</span>` : `<span class="pill future">Geen sensor</span>`}</div>
+        ${motes}
+        <div class="orb"><div class="sweep"></div>
+          <svg viewBox="0 0 240 240"><defs><linearGradient id="snG" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ead39b"/><stop offset=".6" stop-color="#c9a45c"/><stop offset="1" stop-color="#8c6d33"/></linearGradient></defs>
+            <circle cx="120" cy="120" r="112" fill="none" stroke="rgba(201,164,92,.14)" stroke-width="2"/>
+            <circle id="snRing" class="prog" cx="120" cy="120" r="112" fill="none" stroke="url(#snG)" stroke-width="3" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - (r ? 1 : st.pct / 100))).toFixed(1)}" transform="rotate(-90 120 120)"/>
+            <g class="r1"><circle cx="120" cy="120" r="96" fill="none" stroke="rgba(234,211,155,.5)" stroke-width="1" stroke-dasharray="2 9"/><circle cx="120" cy="24" r="3" fill="#ead39b"/></g>
+            <g class="r2"><circle cx="120" cy="120" r="80" fill="none" stroke="rgba(201,164,92,.35)" stroke-width="1" stroke-dasharray="38 14"/><circle cx="200" cy="120" r="2.2" fill="#c9a45c"/></g>
+          </svg>
+          <div class="core">${st.running ? `<span class="pct" id="snPct">${Math.round(st.pct)}%</span>` : r ? ICON.check : ICON.aroma}</div>
+        </div>
+        <div class="cap-b" id="snCap">${esc(capText)}</div></div>`;
+    const steps = st.running || st.steps.length ? `<div class="progress" id="snProg"><div class="row between"><span class="small muted">Voortgang${isDemo ? " (simulatie)" : ""}</span><span class="small" id="snPctTxt" style="color:var(--gold-hi);font-variant-numeric:tabular-nums">${Math.round(r ? 100 : st.pct)}%</span></div><div class="track"><i id="snBar" style="width:${Math.round(r ? 100 : st.pct)}%"></i></div><div class="steps" id="snSteps">${scentStepsHTML()}</div></div>` : "";
+    const controls = isDemo
+      ? (pool.length ? `<section class="section"><label class="f" for="snSample">Demomonster (bestaand parfum)<select class="inp" id="snSample" ${st.running || st.blind ? "disabled" : ""}>${pool.map((p) => `<option value="${esc(p.id)}" ${p.id === st.sample ? "selected" : ""}>${esc(p.brand)} — ${esc(p.name)}</option>`).join("")}</select></label>
+          <label class="chk"><input type="checkbox" id="snBlind" ${st.blind ? "checked" : ""} ${st.running || pool.length < 2 ? "disabled" : ""}><span><b>Blinde demonstratie</b><small>De app kiest zelf een verborgen monster uit je bibliotheek en laat na afloop zien of het herkend is.</small></span></label></section>`
+        : `<div class="empty">${ICON.aroma}<b>Nog geen geurprofielen</b><p class="muted small">De demomodus gebruikt parfums uit je bibliotheek met geurnoten. Bewaar er eerst een paar.</p><button class="btn primary sm" id="snToDisc">Parfums ontdekken</button></div>`)
+      : (real.isConnected() ? `<p class="small muted">Houd de geurstrip of fles pas bij de sensor wanneer de app daarom vraagt. Eerst wordt de schone lucht als basislijn gemeten.</p>` : "");
+    const startBtn = st.running
+      ? `<button class="btn ghost block" id="snStop">Stop meting</button>`
+      : `<button class="btn primary block" id="snStart" ${canStart ? "" : "disabled"}>${ICON.aroma} Start geurherkenning</button>`;
     return {
       title: "Geurherkenning",
-      headerRight: `<span class="pill sim">Simulatie</span>`,
-      html: `
-      <div class="notice">${ICON.info}<div><b>Volledig gesimuleerd.</b> De app maakt een gesimuleerde meting van het gekozen profiel en zoekt welke opgeslagen profielen erop lijken. Zo werkt herkenning straks met een echte sensor; nu wordt er niets geroken of gemeten.</div></div>
-      ${all.length ? `<label class="f" for="recSel">Geurprofiel om te simuleren<select class="inp" id="recSel">${all.map((p) => `<option value="${esc(p.id)}" ${p.id === st.sel ? "selected" : ""}>${esc(p.brand)} — ${esc(p.name)}</option>`).join("")}</select></label>
-      <button class="btn primary block" id="recRun">${ICON.chip} Simuleer nieuwe meting</button>
-      ${r ? `<section class="section"><div class="row between"><h2 class="sec">Meest overeenkomend</h2><span class="pill sim">Gesimuleerd resultaat</span></div>
-        <div class="list">${r.top.map((x, i) => `<button class="item" data-mem="${esc(x.perfume.id)}"><div class="thumb">${visual(x.perfume)}</div><div class="meta"><span class="brand">${i + 1}. ${esc(x.perfume.brand)}</span><span class="name">${esc(x.perfume.name)}</span><span class="sub">${esc(famOf(x.perfume.family).label)}${x.perfume.id === r.perfumeId ? " · bron van de simulatie" : ""}</span></div><div class="end"><b class="simscore">${x.score}%</b><span class="pill sim">Sim</span></div></button>`).join("")}</div>
-        <p class="small muted">Het percentage is de overeenkomst tussen de gesimuleerde meting en het berekende kenmerkprofiel van elk bewaard parfum. ${r.top.length < 3 ? "Er zijn minder dan drie profielen met genoeg geurnoten om mee te vergelijken." : ""}</p>
-        <div class="radar-wrap">${radarSVG(r.measurement, { tone: "sim", label: "Gesimuleerde meting" })}<span class="pill sim wm">Gesimuleerde meting</span></div>
-        <button class="btn ghost block" id="recSave" ${r.saved ? "disabled" : ""}>${r.saved ? ICON.check + " Bewaard in geurgeheugen" : ICON.db + " Bewaar deze simulatie in het geurgeheugen"}</button></section>` : ""}`
-        : `<div class="empty">${ICON.target}<b>Geen bruikbare profielen</b><p class="muted small">Bewaar parfums met geurnoten om herkenning te simuleren.</p></div>`}`,
+      headerRight: embedded ? "" : `<span class="pill ${isDemo ? "sim" : "ok"}">${isDemo ? "Simulatie" : "Sensor"}</span>`,
+      html: `${embedded ? scanSeg() : ""}
+      <div class="seg sm" role="group" aria-label="Sensorbron"><button data-smode="demo" aria-pressed="${isDemo}" ${st.running ? "disabled" : ""}>${ICON.chip} Demomodus</button><button data-smode="real" aria-pressed="${!isDemo}" ${st.running ? "disabled" : ""}>${ICON.bt} Echte sensor</button></div>
+      ${isDemo ? `<div class="notice">${ICON.info}<div><b>Demomodus: dit is een simulatie.</b> Er is geen geursensor verbonden. De app bootst een meting na op basis van de geurnoten van een parfum uit je bibliotheek. Er wordt niets geroken of gemeten.</div></div>` : ""}
+      <section class="sensor-card" aria-live="polite">${sensorCardHTML()}</section>
+      ${stage}
+      ${steps}
+      ${st.error ? `<div class="notice err">${ICON.alert}<div><b>Geen resultaat.</b> ${esc(st.error)}</div></div>` : ""}
+      ${controls}
+      ${startBtn}
+      ${r ? scentResultHTML(r) : ""}`,
       bind(m) {
-        const sel = $("#recSel", m); if (sel) sel.onchange = () => { st.sel = sel.value; UI.render(); };
-        const run = $("#recRun", m);
-        if (run) run.onclick = async () => {
-          run.disabled = true; run.innerHTML = '<span class="spinner"></span> Simuleren…';
-          try {
-            const s = ScentHardware.sensors()[0]; if (!s.isConnected()) await s.connect();
-            const p = Library.get(st.sel); st.run = (st.run || 0) + 1;
-            const meas = await s.measure({ perfume: p, run: st.run });
-            st.result = { perfumeId: p.id, measurement: meas, top: ScentMemory.recognize(meas, 3), saved: false };
-            UI.render();
-          } catch (e) { UI.toast(e.message || "Simulatie mislukt", true); run.disabled = false; run.innerHTML = ICON.chip + " Simuleer nieuwe meting"; }
-        };
-        const sv = $("#recSave", m);
-        if (sv) sv.onclick = async () => { try { await ScentMemory.addMeasurement(st.result.perfumeId, st.result.measurement); st.result.saved = true; UI.toast("Gesimuleerde meting bewaard"); UI.render(); } catch (e) { UI.toast(e.message, true); } };
+        $$("[data-smode]", m).forEach((b) => (b.onclick = () => { if (st.running) return; st.mode = b.dataset.smode; st.result = null; st.error = ""; st.steps = []; st.pct = 0; UI.render(); }));
+        const sel = $("#snSample", m); if (sel) sel.onchange = () => { st.sample = sel.value; st.result = null; st.steps = []; st.error = ""; UI.render(); };
+        const bl = $("#snBlind", m); if (bl) bl.onchange = () => { st.blind = bl.checked; st.result = null; st.steps = []; UI.render(); };
+        const go = $("#snStart", m); if (go) go.onclick = () => runScentRecognition();
+        const stop = $("#snStop", m); if (stop) stop.onclick = () => { if (st.ctrl) st.ctrl.abort(); };
+        const disc = $("#snToDisc", m); if (disc) disc.onclick = () => UI.switchTab("discover");
+        const con = $("#snConnect", m); if (con) con.onclick = async () => { try { const ok = await real.connect(); if (ok) UI.toast("Sensor verbonden: meetgegevens ontvangen"); } catch (e) { UI.toast(e.message, true); } if (scentVisible() && !st.running) UI.render(); };
+        const dis = $("#snDisconnect", m); if (dis) dis.onclick = async () => { await real.disconnect(); UI.toast("Sensor ontkoppeld"); UI.render(); };
+        const sv = $("#snSave", m); if (sv) sv.onclick = () => { const t = $("#snTarget", m); saveScentMeasurement(t ? t.value : r.saveTarget); };
+        const prof = $("#snProfile", m); if (prof) prof.onclick = () => UI.go("memory", { id: prof.dataset.id });
+        const again = $("#snAgain", m); if (again) again.onclick = () => runScentRecognition();
       },
     };
   },
+  recognize(params) { return Screens.scent(params || {}); }, /* oude route (geurgeheugen → Herkenning) opent nu het nieuwe scherm */
 
   lab() {
     const sensor = ScentHardware.sensors()[0], emitter = ScentHardware.emitters()[0];
@@ -1694,9 +2082,11 @@ const Screens = {
       html: `
       <div class="notice">${ICON.info}<div>Alles op dit scherm is een <b>demonstratie met gesimuleerde gegevens</b>. Er wordt niets gemeten en er komt geen geur vrij. Het laat zien hoe de software straks met echte hardware samenwerkt.</div></div>
       <section class="section"><h2 class="sec">Architectuur</h2><div class="arch">
-        <div class="layer"><b>Geursensor</b><code>ScentSensorDriver</code><small>Elektronische neus (bijv. MOS-sensorarray) via Bluetooth LE, USB of ingebouwd. Levert ruwe kanaalwaarden.</small></div>
+        <div class="layer"><b>Geursensor</b><code>ScentSensorDriver</code><small>Elektronische neus (bijv. MOS-sensorarray) via Bluetooth LE of een native app. DemoSensor (simulatie) en RealSensor (protocol ${SENSOR_PROTOCOL.name}) zijn strikt gescheiden.</small></div>
         <div class="arrow">↓ measure()</div>
         <div class="layer"><b>Digitaal geurprofiel</b><code>measurement v1.0</code><small>Gestandaardiseerd formaat: descriptor-assen, ruwe kanalen, meetomstandigheden en bron (simulated/sensor). Gesimuleerde en echte metingen blijven gescheiden van de opgegeven parfumgegevens.</small></div>
+        <div class="arrow">↓ vergelijken</div>
+        <div class="layer"><b>Herkenning</b><code>ScentRecognitionEngine</code><small>Vergelijkt een meting met opgeslagen geurprofielen en geeft een vergelijkingsscore. Staat los van de hardware: DemoSensor en RealSensor leveren hetzelfde meetformaat.</small></div>
         <div class="arrow">↓ opslaan</div>
         <div class="layer"><b>Geurbibliotheek</b><code>Library + Store</code><small>Profielen worden bij het parfum bewaard, op het apparaat en in je account.</small></div>
         <div class="arrow">↓ send()</div>
@@ -1789,7 +2179,7 @@ function restoreSheet() {
           try {
             parsed = Backup.parse(String(rd.result || ""));
             const nImg = parsed.perfumes.filter((p) => p.image).length, nMs = parsed.perfumes.reduce((a, p) => a + p.scentProfiles.length, 0);
-            const conflicts = parsed.perfumes.filter((p) => Library.has(p.id) && !Backup._untouchedExample(Library.get(p.id))).length;
+            const conflicts = parsed.perfumes.filter((p) => { const c = Library.get(p.id) || Library.findDuplicate(p.brand, p.name, p.id); return c && !Backup._untouchedExample(c); }).length;
             show(`<b>${parsed.perfumes.length} parfums, ${nImg} foto's, ${nMs} metingen en ${parsed.lists.length} lijsten gevonden.</b>${parsed.exportedAt ? "<br>Gemaakt op " + esc(new Date(parsed.exportedAt).toLocaleString("nl-NL")) + "." : ""}${conflicts ? `<br>${conflicts} parfums staan hier al; die blijven zoals ze zijn (alleen ontbrekende metingen worden toegevoegd).` : ""}${parsed.errors.length ? `<br><span style="color:var(--warn)">${parsed.errors.length} onderdelen zijn ongeldig en worden overgeslagen:</span><br>${parsed.errors.slice(0, 5).map(esc).join("<br>")}` : ""}`);
             go.disabled = !parsed.perfumes.length && !parsed.lists.length;
           } catch (e) { show(esc(e.message), true); }
@@ -1838,6 +2228,154 @@ function importSheet() {
     });
 }
 
+/* ---------------------------- Geurherkenning helpers --------------- */
+function scentPool() { return Library.all().filter((p) => ScentMemory.traits(p)).sort((a, b) => a.brand.localeCompare(b.brand, "nl") || a.name.localeCompare(b.name, "nl")); }
+function scentVisible() { return (UI.cur.name === "scan" && UI.scanView === "scent") || UI.cur.name === "recognize"; }
+function scanSeg() {
+  const v = UI.scanView === "scent" ? "scent" : "bottle";
+  return `<div class="seg" role="group" aria-label="Scanmethode"><button data-scanview="bottle" aria-pressed="${v === "bottle"}">${ICON.scan} Fles scannen</button><button data-scanview="scent" aria-pressed="${v === "scent"}">${ICON.aroma} Geurherkenning</button></div>`;
+}
+function sensorCardHTML() {
+  const st = UI.scent, real = ScentHardware.realSensor();
+  if (st.mode !== "real") return `<div class="sensor-status"><span class="led sim"></span><div class="meta"><b>Demo-geursensor (virtueel)</b><small>Geen fysieke sensor · alle meetwaarden zijn gesimuleerd</small></div><span class="pill sim">Simulatie</span></div>`;
+  const sup = real.support(), live = real.isConnected();
+  const age = real.lastFrameAt ? Math.max(0, Math.round((Date.now() - real.lastFrameAt) / 1000)) : null;
+  const S = {
+    idle: ["", "Niet verbonden", "Er is geen echte geursensor verbonden"],
+    connecting: ["wait", "Verbinden…", "Kies je sensor in het Bluetooth-venster"],
+    waiting: ["wait", "Wacht op meetgegevens…", "Apparaat gevonden; gegevensontvangst nog niet bevestigd"],
+    connected: ["ok", "Verbonden", (real.device ? real.device.name + " · " : "") + real.frames + " meetframes ontvangen" + (age !== null ? " · laatste " + age + " s geleden" : "")],
+    stale: ["wait", "Geen gegevens meer", "Verbinding bestaat, maar de sensor stuurt al even niets"],
+    disconnected: ["err", "Verbinding verbroken", real.error || "De sensor is niet meer bereikbaar"],
+    error: ["err", "Niet verbonden", real.error || "Verbinden lukte niet"],
+    unsupported: ["", "Niet beschikbaar", "Deze browser kan geen externe sensor gebruiken"],
+  };
+  const [led, title, sub] = S[live ? "connected" : real.state === "connected" ? "stale" : real.state] || S.idle;
+  const why = !sup.ok ? (sup.reason === "ios"
+      ? "<b>iPhone en iPad:</b> Safari en andere browsers op iOS ondersteunen geen Bluetooth-verbinding met externe apparaten (Web Bluetooth). Een echte sensor werkt op de iPhone straks via de native ScentPhone-app. De demomodus werkt wel."
+      : sup.reason === "insecure" ? "Bluetooth werkt alleen als de app via een beveiligde verbinding (https) is geopend."
+      : "Deze browser ondersteunt geen Web Bluetooth. Gebruik Chrome of Edge op Android, Windows, macOS of ChromeOS, of straks de native ScentPhone-app.") : "";
+  const busy = real.state === "connecting" || real.state === "waiting";
+  return `<div class="sensor-status"><span class="led ${led}"></span><div class="meta"><b>${esc(title)}</b><small>${esc(sub)}</small></div><span class="pill ${live ? "ok" : "future"}">${live ? "Echte sensor" : "Offline"}</span></div>
+    ${why ? `<div class="notice">${ICON.info}<div>${why}</div></div>` : `<p class="small muted">Verbinding via ${esc(sup.via)} · protocol <code style="font-family:var(--mono);color:var(--gold)">${SENSOR_PROTOCOL.name}</code>. De sensor geldt pas als verbonden wanneer er echte meetgegevens binnenkomen.</p>`}
+    ${sup.ok ? `<div class="actions">${real.link || busy ? `<button class="btn ghost" id="snDisconnect" ${real.state === "connecting" ? "disabled" : ""}>Ontkoppel</button>` : `<button class="btn" id="snConnect">${ICON.bt} Zoek sensor</button>`}<span class="small muted" style="align-self:center">${busy ? '<span class="spinner" style="display:inline-block;vertical-align:-3px"></span> Bezig…' : ""}</span></div>` : ""}`;
+}
+function scentStepsHTML() { return (UI.scent.steps || []).map((x) => `<div class="st ${x.s}"><i></i><span>${esc(x.t)}</span></div>`).join(""); }
+/** Werkt de voortgang bij zonder het scherm opnieuw op te bouwen (geen verspringende scrollpositie). */
+function paintScentProgress() {
+  const st = UI.scent, pct = Math.round(st.pct), C = 2 * Math.PI * 112;
+  const ring = document.getElementById("snRing"); if (ring) ring.setAttribute("stroke-dashoffset", (C * (1 - st.pct / 100)).toFixed(1));
+  const a = document.getElementById("snPct"); if (a) a.textContent = pct + "%";
+  const b = document.getElementById("snPctTxt"); if (b) b.textContent = pct + "%";
+  const bar = document.getElementById("snBar"); if (bar) bar.style.width = pct + "%";
+  const s = document.getElementById("snSteps"); if (s) s.innerHTML = scentStepsHTML();
+}
+function scentResultHTML(r) {
+  const demo = r.measurement.source !== "sensor", tone = demo ? "sim" : "ok", rec = r.rec, f = rec.features;
+  const scoreBlock = (x) => `<div class="match-score"><b class="${demo ? "sim" : ""}">${x.score}</b><small>vergelijkingsscore · ${esc(ScentRecognitionEngine.qualify(x.score))}</small></div>`;
+  const top = rec.matches[0], alts = rec.matches.slice(1, 5);
+  const rank = r.sampleId ? rec.matches.findIndex((x) => x.perfume.id === r.sampleId) : -1;
+  const sample = r.sampleId && Library.get(r.sampleId);
+  const featureHTML = f.raw
+    ? `<p class="small muted">Deze sensor is nog niet gekalibreerd, dus de meting bestaat uit ruwe sensorkanalen. Geurrichtingen (zoals citrus of houtig) zijn pas te bepalen met een kalibratie voor dit sensortype.</p>${channelBarsHTML(r.measurement)}`
+    : `<div class="bars">${f.axes.map((a) => `<div class="bar"><div class="row between"><span>${esc(a.label)}</span><span class="num">${esc(a.level)} · ${Math.round(a.value * 100)}</span></div><div class="track ${demo ? "sim" : ""}"><i style="width:${Math.round(a.value * 100)}%"></i></div></div>`).join("")}</div>
+       ${f.families.length ? `<div class="kvs"><div class="kv"><span>Mogelijke familie</span><span>${f.families.map((x, i) => `${i ? '<span class="muted"> of </span>' : ""}<span class="fam sm" style="display:inline-flex"><i style="background:${x.family.color}"></i>${esc(x.family.label)}</span>`).join("")}</span></div></div>` : ""}
+       <div class="radar-wrap ${demo ? "" : "gold"}">${radarSVG(r.measurement, { tone: demo ? "sim" : "gold", label: "Gemeten geurprofiel" })}<span class="pill ${tone} wm">${demo ? "Gesimuleerd" : "Sensormeting"}</span></div>`;
+  return `<section class="section" id="snResult">
+      ${r.blind && sample ? `<div class="notice gold">${ICON.target}<div><b>Onthulling:</b> het verborgen demomonster was <b>${esc(sample.brand)} ${esc(sample.name)}</b>. ${rank === 0 ? "De herkenningsmodule zette het op de eerste plaats." : rank > 0 ? "Het stond op plaats " + (rank + 1) + "." : "Het stond niet bij de beste overeenkomsten."}</div></div>` : ""}
+      <div class="row between"><h2 class="sec">Geurkenmerken</h2><span class="pill ${tone}">${demo ? "Gesimuleerd" : "Gemeten"}</span></div>
+      ${featureHTML}
+    </section>
+    <section class="section">
+      <div class="row between"><h2 class="sec">Mogelijke overeenkomsten</h2><span class="pill ${tone}">${demo ? "Demo" : "Sensor"}</span></div>
+      ${top ? `<span class="eyebrow">Beste overeenkomst</span>
+        <button class="result" data-open="${esc(top.perfume.id)}" style="text-align:left;color:inherit"><div class="thumb">${visual(top.perfume)}</div><div class="meta"><span class="eyebrow" style="font-size:10.5px">${esc(top.perfume.brand)}</span><div style="font-family:var(--display);font-size:22px;line-height:1.15;overflow-wrap:anywhere">${esc(top.perfume.name)}</div><div class="small muted">${esc(famOf(top.perfume.family).label)}${top.perfume.concentration ? " · " + esc(top.perfume.concentration) : ""}</div>${scoreBlock(top)}</div></button>
+        ${alts.length ? `<span class="eyebrow">Alternatieve overeenkomsten</span><div class="list">${alts.map((x) => `<button class="item" data-open="${esc(x.perfume.id)}"><div class="thumb">${visual(x.perfume)}</div><div class="meta"><span class="brand">${esc(x.perfume.brand)}</span><span class="name">${esc(x.perfume.name)}</span><span class="sub">${esc(famOf(x.perfume.family).label)} · ${esc(ScentRecognitionEngine.qualify(x.score).toLowerCase())}</span></div><div class="end"><b class="simscore" ${demo ? "" : 'style="color:var(--gold-hi)"'}>${x.score}</b><span class="pill ${tone}">${demo ? "Sim" : "Sensor"}</span></div></button>`).join("")}</div>` : ""}`
+        : rec.noReferences ? `<div class="notice gold">${ICON.info}<div><b>Nog geen referenties voor deze sensor.</b> Herkenning met een echte sensor vergelijkt met eerdere metingen van hetzelfde sensortype. Bewaar deze meting bij het parfum dat je meette; daarna kan de app vergelijkbare metingen herkennen.</div></div>`
+        : `<p class="small muted">Er zijn geen geurprofielen met genoeg gegevens om mee te vergelijken.</p>`}
+      <div class="notice">${ICON.info}<div><b>Vergelijkingsscore, geen nauwkeurigheid.</b> De score (0–100) geeft aan hoe sterk deze ${demo ? "gesimuleerde " : ""}meting lijkt op de geurprofielen in je eigen bibliotheek, berekend met een eenvoudige vergelijkingsmethode. Het is geen wetenschappelijk gevalideerde trefkans en zegt niets over parfums die niet in je bibliotheek staan.${rec.skipped ? " " + rec.skipped + " parfum" + (rec.skipped === 1 ? " is" : "s zijn") + (demo ? " overgeslagen wegens te weinig geurgegevens." : " niet meegenomen omdat er nog geen referentiemeting met deze sensor is.") : ""}</div></div>
+    </section>
+    <section class="section"><h2 class="sec">Meting bewaren</h2>
+      ${demo ? `<p class="small muted">De gesimuleerde meting wordt bewaard bij het demomonster${sample ? ` <b style="color:var(--ivory)">${esc(sample.brand)} ${esc(sample.name)}</b>` : ""}, met het label <span class="pill sim">Simulatie</span>. Opgegeven parfumgegevens worden nooit aangepast.</p>`
+        : `<label class="f" for="snTarget">Bewaar bij parfum<select class="inp" id="snTarget" ${r.saved ? "disabled" : ""}>${Library.all().sort((a, b) => a.brand.localeCompare(b.brand, "nl")).map((p) => `<option value="${esc(p.id)}" ${p.id === r.saveTarget ? "selected" : ""}>${esc(p.brand)} — ${esc(p.name)}</option>`).join("")}</select><span class="hint">Kies het parfum dat je werkelijk hebt gemeten. Zo wordt deze meting een referentie voor latere herkenning.</span></label>`}
+      <div class="actions"><button class="btn primary" id="snSave" ${r.saved || (!demo && !Library.items.size) ? "disabled" : ""}>${r.saved ? ICON.check + " Bewaard" : ICON.db + " Meting opslaan"}</button>${r.saved ? `<button class="btn ghost" id="snProfile" data-id="${esc(r.saved)}">${ICON.db} Geurprofiel</button>` : `<button class="btn ghost" id="snAgain">${ICON.aroma} Opnieuw</button>`}</div>
+    </section>`;
+}
+function channelBarsHTML(m) {
+  const ch = (m.channels || []).slice(0, 32); if (!ch.length) return "";
+  const max = Math.max(...ch.map((c) => Math.abs(c.value)), 1e-9);
+  return `<div class="ch-bars" role="img" aria-label="Respons per sensorkanaal">${ch.map((c) => `<div class="cb"><i style="height:${Math.max(2, Math.round((Math.abs(c.value) / max) * 100))}%;${c.value < 0 ? "opacity:.45" : ""}"></i><small>${esc(c.id.replace(/^\D+-?/, ""))}</small></div>`).join("")}</div>`;
+}
+function channelTableHTML(m) {
+  if (!m.channels || !m.channels.length) return `<p class="small muted">Geen ruwe kanaalgegevens.</p>`;
+  return `<div class="ch-grid">${m.channels.map((c) => `<span><b>${esc(c.id)}</b>${esc(String(c.value))}${c.unit ? ` <small>${esc(c.unit)}</small>` : ""}</span>`).join("")}</div>`;
+}
+async function runScentRecognition() {
+  const st = UI.scent; if (st.running) return;
+  const isDemo = st.mode !== "real";
+  const sensor = isDemo ? ScentHardware.demoSensor() : ScentHardware.realSensor();
+  let perfume = null;
+  if (isDemo) {
+    const pool = scentPool(); if (!pool.length) { UI.toast("Bewaar eerst parfums met geurnoten.", true); return; }
+    if (st.blind && pool.length > 1) { perfume = pool[Math.floor(Math.random() * pool.length)]; st.blindId = perfume.id; }
+    else { perfume = Library.get(st.sample) || pool[0]; st.blindId = null; }
+    st.runSample = perfume.id;
+  } else if (!sensor.isConnected()) { UI.toast("Verbind eerst een echte sensor die meetgegevens stuurt.", true); return; }
+  Object.assign(st, { running: true, result: null, error: "", pct: 0, steps: [], ctrl: new AbortController() });
+  const signal = st.ctrl.signal;
+  const step = (label, pct) => {
+    const s = st.steps, last = s[s.length - 1];
+    if (!last || last.t !== label) { if (last && last.s === "run") last.s = "done"; s.push({ t: label, s: "run" }); }
+    st.pct = Math.max(st.pct, Math.min(99, pct)); paintScentProgress();
+  };
+  if (scentVisible()) { UI.render(); const sg = document.getElementById("snStage"); if (sg && sg.scrollIntoView) sg.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  try {
+    if (isDemo && !sensor.isConnected()) { step("Demo-sensor verbinden (virtueel)", 4); await sensor.connect(); }
+    st.run = (st.run || 0) + 1;
+    const m = await sensor.measure({ perfume, run: st.run, signal, onProgress: (ph) => step(ph.label, ph.pct) });
+    step("Vergelijken met je geurprofielen", 92); await sleep(isDemo ? 650 : 200, signal);
+    const rec = ScentRecognitionEngine.recognize(m, { limit: 5 });
+    st.steps.forEach((x) => { if (x.s === "run") x.s = "done"; }); st.pct = 100;
+    st.result = { measurement: m, rec, sampleId: perfume ? perfume.id : null, blind: !!st.blindId, saveTarget: isDemo ? perfume.id : ((rec.matches[0] && rec.matches[0].perfume.id) || ""), saved: false };
+  } catch (e) {
+    st.steps.forEach((x) => { if (x.s === "run") x.s = "fail"; });
+    st.error = e && e.name === "AbortError" ? "Je hebt de meting gestopt. Er is niets bewaard." : (e && e.message) || "De meting lukte niet. Er is niets bewaard.";
+  } finally {
+    st.running = false; st.ctrl = null;
+    if (scentVisible()) { UI.render(); const el = document.getElementById(st.result ? "snResult" : "snProg"); if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  }
+}
+async function saveScentMeasurement(targetId) {
+  const r = UI.scent.result; if (!r || r.saved) return;
+  if (!targetId || !Library.has(targetId)) { UI.toast("Kies een parfum uit je bibliotheek.", true); return; }
+  const m = { ...r.measurement, recognition: { engine: r.rec.engine, method: r.rec.method, at: new Date().toISOString(), top: r.rec.matches.slice(0, 5).map((x) => ({ perfumeId: x.perfume.id, brand: x.perfume.brand, name: x.perfume.name, score: x.score })) } };
+  try {
+    await ScentMemory.addMeasurement(targetId, m);
+    r.saved = targetId; const p = Library.get(targetId);
+    UI.toast((r.measurement.source === "sensor" ? "Sensormeting" : "Gesimuleerde meting") + " bewaard bij " + p.brand + " " + p.name);
+    UI.render(); const el = document.getElementById("snSave"); if (el && el.scrollIntoView) el.scrollIntoView({ block: "center" });
+  } catch (e) { UI.toast(e.message || "Bewaren lukte niet.", true); }
+}
+/* Echte sensor: statuswijzigingen direct tonen op het geurherkenningsscherm */
+ScentHardware.realSensor().on(() => { if (scentVisible() && !UI.scent.running && UI.scent.mode === "real" && !document.activeElement?.matches("select")) UI.render(); });
+
+/* ---------------------------- Dubbele parfums voorkomen ------------ */
+/** Vraagt wat te doen als er al een parfum met hetzelfde merk en dezelfde naam is. onSeparate = toch apart bewaren. */
+function confirmDuplicate(existing, onSeparate, onOpen) {
+  UI.sheet(`<h3>Staat al in je bibliotheek</h3><p class="muted">${esc(existing.brand)} ${esc(existing.name)} is al bewaard${existing.testedOn ? " (getest " + esc(fmtDate(existing.testedOn)) + ")" : ""}. Open het bestaande parfum om een dubbele vermelding te voorkomen.</p>
+    <div class="actions"><button class="btn ghost" id="dupSep">Toch apart bewaren</button><button class="btn primary" id="dupOpen">Open bestaand</button></div>`,
+    (s, close) => {
+      $("#dupOpen", s).onclick = () => { close(); if (onOpen) onOpen(); else UI.go("perfume", { id: existing.id }); };
+      $("#dupSep", s).onclick = async () => { close(); await onSeparate(); };
+    });
+}
+async function guardedSave(p, after) {
+  if (Library.has(p.id)) { after && after(Library.get(p.id)); return; }
+  const doSave = async () => { const rec = await Library.save(p); UI.toast("Bewaard in je geurbibliotheek"); after && after(rec); };
+  const dup = Library.findDuplicate(p.brand, p.name, p.id);
+  if (dup) confirmDuplicate(dup, doSave); else await doSave();
+}
+
 /* ---------------------------- Scanner flow ------------------------- */
 const Scanner = {
   set(patch) { Object.assign(UI.scan, patch); if (UI.cur.name === "scan") UI.render(); },
@@ -1845,6 +2383,7 @@ const Scanner = {
   finishSteps(s = "done") { const st = UI.scan.steps || []; if (st.length && st[st.length - 1].s === "run") st[st.length - 1].s = s; },
   async handleFile(file) {
     if (!file) return;
+    UI.scanView = "bottle";
     if (UI.cur.name !== "scan") UI.switchTab("scan");
     if (!file.type.startsWith("image/")) { this.set({ state: "error", errTitle: "Dit is geen afbeelding", errMsg: "Kies een foto (JPG, PNG of HEIC) van de barcode of de fles.", canAI: false, steps: [] }); return; }
     this.set({ state: "busy", steps: [], preview: null, perfume: null, code: null, confidence: null });
@@ -1869,6 +2408,7 @@ const Scanner = {
   },
   async byCode(raw) {
     const code = String(raw || "").replace(/\s/g, "");
+    UI.scanView = "bottle";
     if (UI.cur.name !== "scan") UI.switchTab("scan");
     const err = $("#codeErr");
     if (!/^\d{6,14}$/.test(code)) { if (err) { err.hidden = false; err.textContent = "Een barcode bestaat uit 6 tot 14 cijfers."; } return; }
